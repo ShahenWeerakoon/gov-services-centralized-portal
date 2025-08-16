@@ -16,32 +16,51 @@ const Register = ({ onRegister }) => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    // Clear error for this field
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
     if (errors[e.target.name]) {
-      setErrors({
-        ...errors,
-        [e.target.name]: "",
-      });
+      setErrors({ ...errors, [e.target.name]: "" });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setErrors({});
 
+    // Frontend password match check
+    if (formData.password !== formData.password_confirm) {
+      setErrors({ password_confirm: "Passwords do not match" });
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      const response = await axios.post("/auth/register/", formData);
-      onRegister(response.data.user, response.data.token);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/auth/register/",
+        formData,
+        { withCredentials: true }
+      );
+
+      // Adjust according to backend response structure
+      const user = response.data.user || response.data;
+      const token = response.data.token || null;
+
+      onRegister(user, token);
     } catch (error) {
       if (error.response && error.response.data) {
-        setErrors(error.response.data);
+        // Normalize DRF error arrays to strings
+        const normalizedErrors = Object.fromEntries(
+          Object.entries(error.response.data).map(([key, value]) => [
+            key,
+            Array.isArray(value) ? value[0] : value,
+          ])
+        );
+        setErrors(normalizedErrors);
       } else {
-        setErrors({ general: "An error occurred. Please try again." });
+        setErrors({
+          general: "An unexpected error occurred. Please try again.",
+        });
       }
     } finally {
       setLoading(false);
