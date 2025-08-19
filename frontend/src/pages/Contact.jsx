@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Contact.css";
+import "../styles/Contact.css";
 
 const Contact = () => {
   const [contactInfo, setContactInfo] = useState(null);

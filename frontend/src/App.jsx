@@ -10,11 +10,11 @@ import "./App.css";
 
 // Components
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import About from "./components/About";
-import Contact from "./components/Contact";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 // Set up axios base URL
 axios.defaults.baseURL = "http://localhost:8000/api";
