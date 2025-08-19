@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./About.css";
+import "../styles/About.css";
 
 const About = () => {
   const [aboutData, setAboutData] = useState(null);
