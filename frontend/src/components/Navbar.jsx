@@ -15,7 +15,7 @@ const Navbar = ({ user, onLogout }) => {
       <div className="nav-container">
         {/* Logo */}
         <Link to="/" className="nav-logo">
-          TALKGOV
+          TALK<span className="logo-gov">GOV</span>.
         </Link>
 
         {/* Desktop Nav */}
@@ -26,28 +26,41 @@ const Navbar = ({ user, onLogout }) => {
           <Link to="/about" className={isActive("/about")}>
             About
           </Link>
+          <Link to="/services" className={isActive("/services")}>
+            Services
+          </Link>
+          <Link to="/office-locator" className={isActive("/office-locator")}>
+            Office Locator
+          </Link>
+          <Link
+            to="/document-checklist"
+            className={isActive("/document-checklist")}
+          >
+            Document Checklist
+          </Link>
           <Link to="/contact" className={isActive("/contact")}>
             Contact
           </Link>
 
-          {/* Language Button */}
-          <button className="nav-button language">🌐 English</button>
+          {/* Language Selector */}
+          <div className="language-selector">
+            <span className="globe-icon">🌐</span>
+            <span>English</span>
+            <span className="dropdown-arrow">▼</span>
+          </div>
 
           {/* User Auth Section */}
           {user ? (
             <div className="nav-user">
-              <span className="nav-welcome">Welcome, {user.username}!</span>
               <button onClick={onLogout} className="nav-button logout">
-                Logout
+                Log out
               </button>
             </div>
           ) : (
             <div className="nav-auth">
-              <Link to="/login" className="nav-button">
-                Login
-              </Link>
+              <button className="nav-button login">Log in</button>
               <Link to="/register" className="nav-button register">
-                Register
+                Sign Up
               </Link>
             </div>
           )}
@@ -87,6 +100,27 @@ const Navbar = ({ user, onLogout }) => {
               About
             </Link>
             <Link
+              to="/services"
+              onClick={() => setIsMenuOpen(false)}
+              className={isActive("/services")}
+            >
+              Services
+            </Link>
+            <Link
+              to="/office-locator"
+              onClick={() => setIsMenuOpen(false)}
+              className={isActive("/office-locator")}
+            >
+              Office Locator
+            </Link>
+            <Link
+              to="/document-checklist"
+              onClick={() => setIsMenuOpen(false)}
+              className={isActive("/document-checklist")}
+            >
+              Document Checklist
+            </Link>
+            <Link
               to="/contact"
               onClick={() => setIsMenuOpen(false)}
               className={isActive("/contact")}
@@ -95,38 +129,36 @@ const Navbar = ({ user, onLogout }) => {
             </Link>
 
             <div className="mobile-auth">
-              <button className="nav-button language">🌐 English</button>
+              <div className="language-selector mobile">
+                <span className="globe-icon">🌐</span>
+                <span>English</span>
+                <span className="dropdown-arrow">▼</span>
+              </div>
 
               {user ? (
-                <>
-                  <span className="nav-welcome mobile">
-                    Welcome, {user.username}!
-                  </span>
-                  <button
-                    onClick={() => {
-                      onLogout();
-                      setIsMenuOpen(false);
-                    }}
-                    className="nav-button logout"
-                  >
-                    Logout
-                  </button>
-                </>
+                <button
+                  onClick={() => {
+                    onLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="nav-button logout"
+                >
+                  Log out
+                </button>
               ) : (
                 <>
-                  <Link
-                    to="/login"
+                  <button
                     onClick={() => setIsMenuOpen(false)}
-                    className="nav-button"
+                    className="nav-button login"
                   >
-                    Login
-                  </Link>
+                    Log in
+                  </button>
                   <Link
                     to="/register"
                     onClick={() => setIsMenuOpen(false)}
                     className="nav-button register"
                   >
-                    Register
+                    Sign Up
                   </Link>
                 </>
               )}
