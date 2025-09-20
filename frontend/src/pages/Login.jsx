@@ -1,6 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {
+  FaEye,
+  FaEyeSlash,
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaGoogle,
+  FaBuilding,
+  FaUsers,
+  FaClipboardCheck,
+  FaRobot,
+} from "react-icons/fa";
 import "../styles/Auth.css";
 
 const Login = ({ onLogin }) => {
@@ -10,87 +22,226 @@ const Login = ({ onLogin }) => {
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    // Clear error for this field
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
     if (errors[e.target.name]) {
-      setErrors({
-        ...errors,
-        [e.target.name]: "",
-      });
+      setErrors({ ...errors, [e.target.name]: "" });
     }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.username.trim()) {
+      newErrors.username = "Username or email is required";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setErrors({});
 
+    if (!validateForm()) {
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      const response = await axios.post("/auth/login/", formData);
-      onLogin(response.data.user, response.data.token);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/auth/login/",
+        formData,
+        { withCredentials: true }
+      );
+
+      const user = response.data.user || response.data;
+      const token = response.data.token || null;
+
+      onLogin(user, token);
     } catch (error) {
       if (error.response && error.response.data) {
-        setErrors(error.response.data);
+        const normalizedErrors = Object.fromEntries(
+          Object.entries(error.response.data).map(([key, value]) => [
+            key,
+            Array.isArray(value) ? value[0] : value,
+          ])
+        );
+        setErrors(normalizedErrors);
       } else {
-        setErrors({ general: "An error occurred. Please try again." });
+        setErrors({
+          general: "Invalid credentials. Please try again.",
+        });
       }
     } finally {
       setLoading(false);
     }
   };
 
+  const handleGoogleLogin = () => {
+    // Placeholder for Google OAuth integration
+    console.log("Google login clicked");
+  };
+
   return (
-    <div className="auth-container">
-      <div className="auth-form">
-        <h2>Sign In</h2>
-        <form onSubmit={handleSubmit}>
-          {errors.general && (
-            <div className="error-message">{errors.general}</div>
-          )}
+    <div className="auth-page">
+      {/* Left Panel - Promotional Section */}
+      <div className="auth-left-panel">
+        <div className="promotional-content">
+          <div className="illustration-container">
+            <div className="main-illustration">
+              <div className="student-figure">
+                <div className="student-head"></div>
+                <div className="student-body"></div>
+                <div className="student-arm"></div>
+              </div>
+              <div className="desk">
+                <div className="papers">
+                  <div className="paper paper-1"></div>
+                  <div className="paper paper-2"></div>
+                  <div className="paper paper-3"></div>
+                </div>
+              </div>
+              <div className="backpack"></div>
+              <div className="plant"></div>
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-            {errors.username && (
-              <span className="error">{errors.username}</span>
-            )}
+            {/* Floating Academic Elements */}
+            <div className="floating-elements">
+              <div className="math-symbol">f(x)</div>
+              <div className="math-symbol">√x</div>
+              <div className="math-symbol">π</div>
+              <div className="math-symbol">x²</div>
+              <div className="math-symbol">(x,y)</div>
+              <div className="math-symbol">(a,b)</div>
+              <div className="math-symbol">x-y</div>
+              <div className="math-symbol">a⁴</div>
+              <div className="icon-element clock">🕐</div>
+              <div className="icon-element clock">🕑</div>
+              <div className="icon-element gear">⚙️</div>
+              <div className="shape triangle"></div>
+              <div className="shape cube"></div>
+            </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-            {errors.password && (
-              <span className="error">{errors.password}</span>
-            )}
+          <div className="promotional-text">
+            <h1>TalkGov</h1>
+            <p>
+              Your gateway to Sri Lankan government services. Simple, fast, and
+              accessible.
+            </p>
           </div>
 
-          <button type="submit" disabled={loading} className="btn btn-primary">
-            {loading ? "Signing In..." : "Sign In"}
-          </button>
-        </form>
+          <div className="pagination-dots">
+            <div className="dot active"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
+          </div>
+        </div>
+      </div>
 
-        <p className="auth-switch">
-          Don't have an account? <Link to="/register">Sign up here</Link>
-        </p>
+      {/* Right Panel - Login Form */}
+      <div className="auth-right-panel">
+        <div className="auth-form-container">
+          <div className="form-section">
+            <h2>Welcome Back</h2>
+            <p className="form-subtitle">Sign in to your account</p>
+
+            <form onSubmit={handleSubmit}>
+              {errors.general && (
+                <div className="error-message">{errors.general}</div>
+              )}
+
+              <div className="form-group">
+                <label htmlFor="username">
+                  <FaUser className="input-icon" />
+                  Username or email
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  placeholder="Enter your username or email"
+                  className={errors.username ? "error-input" : ""}
+                  required
+                />
+                {errors.username && (
+                  <span className="error">{errors.username}</span>
+                )}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">
+                  <FaLock className="input-icon" />
+                  Password
+                </label>
+                <div className="password-input-wrapper">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Enter your password"
+                    className={errors.password ? "error-input" : ""}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+                <div className="forgot-password">
+                  <Link to="/forgot-password">Forgot password?</Link>
+                </div>
+                {errors.password && (
+                  <span className="error">{errors.password}</span>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn btn-primary"
+              >
+                {loading ? "Signing in..." : "Sign in"}
+              </button>
+            </form>
+
+            <div className="divider">
+              <span>or</span>
+            </div>
+
+            <button
+              type="button"
+              className="btn btn-google"
+              onClick={handleGoogleLogin}
+            >
+              <FaGoogle className="google-icon" />
+              Sign in with Google
+            </button>
+
+            <div className="auth-switch">
+              <p>
+                Are you new? <Link to="/register">Create an Account</Link>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

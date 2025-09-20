@@ -1,10 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FaGlobe, FaChevronDown } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import "../styles/Navbar.css";
 
 const Navbar = ({ user, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const location = useLocation();
+  const { t, i18n } = useTranslation();
+
+  const languages = [
+    { code: "en", name: "English", nativeName: "English" },
+    { code: "si", name: "Sinhala", nativeName: "සිංහල" },
+    { code: "ta", name: "Tamil", nativeName: "தமிழ்" },
+  ];
+
+  const languageDropdownRef = useRef(null);
+
+  const handleLanguageChange = (language) => {
+    i18n.changeLanguage(language.code);
+    setIsLanguageDropdownOpen(false);
+    localStorage.setItem("selectedLanguage", language.name);
+  };
+
+  // Get current language name for display
+  const getCurrentLanguageName = () => {
+    const currentLang = languages.find((lang) => lang.code === i18n.language);
+    return currentLang ? currentLang.name : "English";
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        languageDropdownRef.current &&
+        !languageDropdownRef.current.contains(event.target)
+      ) {
+        setIsLanguageDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const isActive = (path) => {
     return location.pathname === path ? "nav-link active" : "nav-link";
@@ -21,46 +62,76 @@ const Navbar = ({ user, onLogout }) => {
         {/* Desktop Nav */}
         <div className="nav-menu">
           <Link to="/" className={isActive("/")}>
-            Home
+            {t("nav.home")}
           </Link>
           <Link to="/about" className={isActive("/about")}>
-            About
+            {t("nav.about")}
           </Link>
           <Link to="/services" className={isActive("/services")}>
-            Services
+            {t("nav.services")}
           </Link>
           <Link to="/office-locator" className={isActive("/office-locator")}>
-            Office Locator
+            {t("nav.officeLocator")}
           </Link>
           <Link
             to="/document-checklist"
             className={isActive("/document-checklist")}
           >
-            Document Checklist
+            {t("nav.documentChecklist")}
           </Link>
           <Link to="/contact" className={isActive("/contact")}>
-            Contact
+            {t("nav.contact")}
           </Link>
 
           {/* Language Selector */}
-          <div className="language-selector">
-            <span className="globe-icon">🌐</span>
-            <span>English</span>
-            <span className="dropdown-arrow">▼</span>
+          <div className="language-selector" ref={languageDropdownRef}>
+            <div
+              className="language-trigger"
+              onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+            >
+              <FaGlobe className="globe-icon" />
+              <span className="language-text">{getCurrentLanguageName()}</span>
+              <FaChevronDown
+                className={`dropdown-arrow ${
+                  isLanguageDropdownOpen ? "open" : ""
+                }`}
+              />
+            </div>
+
+            {isLanguageDropdownOpen && (
+              <div className="language-dropdown">
+                {languages.map((language) => (
+                  <div
+                    key={language.code}
+                    className={`language-option ${
+                      i18n.language === language.code ? "selected" : ""
+                    }`}
+                    onClick={() => handleLanguageChange(language)}
+                  >
+                    <span className="language-native">
+                      {language.nativeName}
+                    </span>
+                    <span className="language-english">{language.name}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* User Auth Section */}
           {user ? (
             <div className="nav-user">
               <button onClick={onLogout} className="nav-button logout">
-                Log out
+                {t("nav.logout")}
               </button>
             </div>
           ) : (
             <div className="nav-auth">
-              <button className="nav-button login">Log in</button>
+              <Link to="/login" className="nav-button login">
+                {t("nav.login")}
+              </Link>
               <Link to="/register" className="nav-button register">
-                Sign Up
+                {t("nav.signUp")}
               </Link>
             </div>
           )}
@@ -90,49 +161,83 @@ const Navbar = ({ user, onLogout }) => {
               onClick={() => setIsMenuOpen(false)}
               className={isActive("/")}
             >
-              Home
+              {t("nav.home")}
             </Link>
             <Link
               to="/about"
               onClick={() => setIsMenuOpen(false)}
               className={isActive("/about")}
             >
-              About
+              {t("nav.about")}
             </Link>
             <Link
               to="/services"
               onClick={() => setIsMenuOpen(false)}
               className={isActive("/services")}
             >
-              Services
+              {t("nav.services")}
             </Link>
             <Link
               to="/office-locator"
               onClick={() => setIsMenuOpen(false)}
               className={isActive("/office-locator")}
             >
-              Office Locator
+              {t("nav.officeLocator")}
             </Link>
             <Link
               to="/document-checklist"
               onClick={() => setIsMenuOpen(false)}
               className={isActive("/document-checklist")}
             >
-              Document Checklist
+              {t("nav.documentChecklist")}
             </Link>
             <Link
               to="/contact"
               onClick={() => setIsMenuOpen(false)}
               className={isActive("/contact")}
             >
-              Contact
+              {t("nav.contact")}
             </Link>
 
             <div className="mobile-auth">
               <div className="language-selector mobile">
-                <span className="globe-icon">🌐</span>
-                <span>English</span>
-                <span className="dropdown-arrow">▼</span>
+                <div
+                  className="language-trigger"
+                  onClick={() =>
+                    setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
+                  }
+                >
+                  <FaGlobe className="globe-icon" />
+                  <span className="language-text">
+                    {getCurrentLanguageName()}
+                  </span>
+                  <FaChevronDown
+                    className={`dropdown-arrow ${
+                      isLanguageDropdownOpen ? "open" : ""
+                    }`}
+                  />
+                </div>
+
+                {isLanguageDropdownOpen && (
+                  <div className="language-dropdown mobile">
+                    {languages.map((language) => (
+                      <div
+                        key={language.code}
+                        className={`language-option ${
+                          i18n.language === language.code ? "selected" : ""
+                        }`}
+                        onClick={() => handleLanguageChange(language)}
+                      >
+                        <span className="language-native">
+                          {language.nativeName}
+                        </span>
+                        <span className="language-english">
+                          {language.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {user ? (
@@ -143,22 +248,23 @@ const Navbar = ({ user, onLogout }) => {
                   }}
                   className="nav-button logout"
                 >
-                  Log out
+                  {t("nav.logout")}
                 </button>
               ) : (
                 <>
-                  <button
+                  <Link
+                    to="/login"
                     onClick={() => setIsMenuOpen(false)}
                     className="nav-button login"
                   >
-                    Log in
-                  </button>
+                    {t("nav.login")}
+                  </Link>
                   <Link
                     to="/register"
                     onClick={() => setIsMenuOpen(false)}
                     className="nav-button register"
                   >
-                    Sign Up
+                    {t("nav.signUp")}
                   </Link>
                 </>
               )}

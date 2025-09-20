@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
+import "./i18n";
 
 // Components
 import Navbar from "./components/Navbar";
@@ -15,6 +16,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ServiceDetail from "./pages/ServiceDetail";
 
 // Set up axios base URL
 axios.defaults.baseURL = "http://localhost:8000/api";
@@ -89,6 +91,7 @@ function App() {
             />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/services/:serviceId" element={<ServiceDetail />} />
           </Routes>
         </main>
       </div>
