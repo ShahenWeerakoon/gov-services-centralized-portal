@@ -70,9 +70,13 @@ const Navbar = ({ user, onLogout }) => {
           <Link to="/services" className={isActive("/services")}>
             {t("nav.services")}
           </Link>
-          <Link to="/office-locator" className={isActive("/office-locator")}>
+          {/* <Link to="/office-locator" className={isActive("/office-locator")}>
             {t("nav.officeLocator")}
+          </Link> */}
+          <Link to="/map" className={isActive("/map")}>
+            {t("nav.officeLocator") || "Office Locator"}
           </Link>
+
           <Link
             to="/document-checklist"
             className={isActive("/document-checklist")}
@@ -177,13 +181,21 @@ const Navbar = ({ user, onLogout }) => {
             >
               {t("nav.services")}
             </Link>
-            <Link
+            {/* <Link
               to="/office-locator"
               onClick={() => setIsMenuOpen(false)}
               className={isActive("/office-locator")}
             >
               {t("nav.officeLocator")}
+            </Link> */}
+            <Link
+              to="/map"
+              onClick={() => setIsMenuOpen(false)}
+              className={isActive("/map")}
+            >
+              {t("nav.officeLocator") || "Office Locator"}
             </Link>
+
             <Link
               to="/document-checklist"
               onClick={() => setIsMenuOpen(false)}
