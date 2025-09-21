@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import {
   FaEye,
@@ -12,6 +13,7 @@ import {
 import "../styles/Auth.css";
 
 const Register = ({ onRegister }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -204,8 +206,8 @@ const Register = ({ onRegister }) => {
       <div className="auth-right-panel">
         <div className="auth-form-container">
           <div className="form-section">
-            <h2>Create Account</h2>
-            <p className="form-subtitle">Join TalkGov today</p>
+            <h2>{t("auth.createAccount")}</h2>
+            <p className="form-subtitle">{t("auth.joinSubtitle")}</p>
             {success ? (
               <div className="success-message">
                 <div className="success-icon">✓</div>
@@ -390,14 +392,15 @@ const Register = ({ onRegister }) => {
                   disabled={loading}
                   className="btn btn-primary"
                 >
-                  {loading ? "Creating Account..." : "Create Account"}
+                  {loading ? "Creating Account..." : t("nav.signUp")}
                 </button>
               </form>
             )}
 
             <div className="auth-switch">
               <p>
-                Already have an account? <Link to="/login">Sign in here</Link>
+                {t("auth.alreadyHaveAccount")}{" "}
+                <Link to="/login">{t("auth.signInHere")}</Link>
               </p>
             </div>
           </div>

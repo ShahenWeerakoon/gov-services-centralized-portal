@@ -19,6 +19,7 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ServiceDetail from "./pages/ServiceDetail";
+import Services from "./pages/Services";
 import MapPage from "./pages/MapPage";
 
 // Set up axios base URL
@@ -130,6 +131,7 @@ function App() {
             />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/services" element={<Services />} />
             {/* <Route path="/services/:serviceId" element={<ServiceDetail />} /> */}
 
             <Route
