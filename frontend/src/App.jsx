@@ -116,7 +116,12 @@ function App() {
             />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/services/:serviceId" element={<ServiceDetail />} />
+            {/* <Route path="/services/:serviceId" element={<ServiceDetail />} /> */}
+
+            <Route
+              path="/services/:serviceId"
+              element={<ServiceDetail user={user} />}
+            />
             <Route path="/map" element={<MapPage />} />
           </Routes>
         </main>
