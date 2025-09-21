@@ -13,7 +13,6 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import Footer from "../components/Footer";
 import Chatbot from "../components/Chatbot";
 import "../styles/ServiceDetail.css";
 import "../styles/Shared.css";
@@ -325,7 +324,6 @@ const ServiceDetail = ({ user }) => {
         </div>
       </div>
 
-      <Footer />
       <Chatbot />
     </div>
   );

@@ -9,7 +9,6 @@ import {
   FaBuilding,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import Footer from "../components/Footer";
 import Chatbot from "../components/Chatbot";
 import "../styles/Contact.css";
 import "../styles/Shared.css";
@@ -278,7 +277,6 @@ const Contact = () => {
         </div>
       </div>
 
-      <Footer />
       <Chatbot />
     </div>
   );

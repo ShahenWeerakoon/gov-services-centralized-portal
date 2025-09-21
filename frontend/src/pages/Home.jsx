@@ -12,7 +12,6 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import Footer from "../components/Footer";
 import Chatbot from "../components/Chatbot";
 import heroVideo from "../assets/hero.mp4";
 import "../styles/Home.css";
@@ -210,8 +209,6 @@ const Home = ({ user }) => {
           </div>
         </div>
       </div>
-
-      <Footer />
 
       <Chatbot />
     </div>

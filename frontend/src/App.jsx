@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
@@ -11,6 +12,7 @@ import "./i18n";
 
 // Components
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -21,6 +23,18 @@ import MapPage from "./pages/MapPage";
 
 // Set up axios base URL
 axios.defaults.baseURL = "http://localhost:8000/api";
+
+// Component to conditionally render footer
+const ConditionalFooter = () => {
+  const location = useLocation();
+  const noFooterPages = ["/login", "/register"];
+
+  if (noFooterPages.includes(location.pathname)) {
+    return null;
+  }
+
+  return <Footer />;
+};
 
 function App() {
   const [user, setUser] = useState(null);
@@ -125,6 +139,7 @@ function App() {
             <Route path="/map" element={<MapPage />} />
           </Routes>
         </main>
+        <ConditionalFooter />
       </div>
     </Router>
   );
