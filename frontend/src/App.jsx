@@ -17,6 +17,7 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ServiceDetail from "./pages/ServiceDetail";
+import MapPage from "./pages/MapPage";
 
 // Set up axios base URL
 axios.defaults.baseURL = "http://localhost:8000/api";
@@ -70,7 +71,7 @@ function App() {
     <Router>
       <div className="App">
         <Navbar user={user} onLogout={handleLogout} />
-        <main className="main-content">
+        {/* <main className="main-content">
           <Routes>
             <Route path="/" element={<Home user={user} />} />
             <Route
@@ -92,6 +93,36 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/services/:serviceId" element={<ServiceDetail />} />
+          </Routes>
+        </main> */}
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home user={user} />} />
+            <Route
+              path="/login"
+              element={
+                !user ? <Login onLogin={handleLogin} /> : <Navigate to="/" />
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                !user ? (
+                  <Register onRegister={handleLogin} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            {/* <Route path="/services/:serviceId" element={<ServiceDetail />} /> */}
+
+            <Route
+              path="/services/:serviceId"
+              element={<ServiceDetail user={user} />}
+            />
+            <Route path="/map" element={<MapPage />} />
           </Routes>
         </main>
       </div>
