@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import {
   FaEye,
@@ -16,6 +17,7 @@ import {
 import "../styles/Auth.css";
 
 const Login = ({ onLogin }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -153,8 +155,8 @@ const Login = ({ onLogin }) => {
       <div className="auth-right-panel">
         <div className="auth-form-container">
           <div className="form-section">
-            <h2>Welcome Back</h2>
-            <p className="form-subtitle">Sign in to your account</p>
+            <h2>{t("auth.welcomeBack")}</h2>
+            <p className="form-subtitle">{t("auth.signInSubtitle")}</p>
 
             <form onSubmit={handleSubmit}>
               {errors.general && (
@@ -164,7 +166,7 @@ const Login = ({ onLogin }) => {
               <div className="form-group">
                 <label htmlFor="username">
                   <FaUser className="input-icon" />
-                  Username or email
+                  {t("auth.username")}
                 </label>
                 <input
                   type="text"
@@ -172,7 +174,7 @@ const Login = ({ onLogin }) => {
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
-                  placeholder="Enter your username or email"
+                  placeholder={t("auth.username")}
                   className={errors.username ? "error-input" : ""}
                   required
                 />
@@ -184,7 +186,7 @@ const Login = ({ onLogin }) => {
               <div className="form-group">
                 <label htmlFor="password">
                   <FaLock className="input-icon" />
-                  Password
+                  {t("auth.password")}
                 </label>
                 <div className="password-input-wrapper">
                   <input
@@ -193,7 +195,7 @@ const Login = ({ onLogin }) => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    placeholder="Enter your password"
+                    placeholder={t("auth.password")}
                     className={errors.password ? "error-input" : ""}
                     required
                   />
@@ -206,7 +208,7 @@ const Login = ({ onLogin }) => {
                   </button>
                 </div>
                 <div className="forgot-password">
-                  <Link to="/forgot-password">Forgot password?</Link>
+                  <Link to="/forgot-password">{t("auth.forgotPassword")}</Link>
                 </div>
                 {errors.password && (
                   <span className="error">{errors.password}</span>
@@ -218,12 +220,12 @@ const Login = ({ onLogin }) => {
                 disabled={loading}
                 className="btn btn-primary"
               >
-                {loading ? "Signing in..." : "Sign in"}
+                {loading ? "Signing in..." : t("nav.login")}
               </button>
             </form>
 
             <div className="divider">
-              <span>or</span>
+              <span>{t("auth.or")}</span>
             </div>
 
             <button
@@ -232,12 +234,13 @@ const Login = ({ onLogin }) => {
               onClick={handleGoogleLogin}
             >
               <FaGoogle className="google-icon" />
-              Sign in with Google
+              {t("auth.signInWithGoogle")}
             </button>
 
             <div className="auth-switch">
               <p>
-                Are you new? <Link to="/register">Create an Account</Link>
+                {t("auth.dontHaveAccount")}{" "}
+                <Link to="/register">{t("auth.signUpHere")}</Link>
               </p>
             </div>
           </div>
