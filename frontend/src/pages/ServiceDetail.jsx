@@ -13,12 +13,13 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import Footer from "../components/Footer";
 import Chatbot from "../components/Chatbot";
 import "../styles/ServiceDetail.css";
 import "../styles/Shared.css";
+import axios from "axios";
 
-const ServiceDetail = () => {
+// const ServiceDetail = () => {
+const ServiceDetail = ({ user }) => {
   const { t } = useTranslation();
   const { serviceId } = useParams();
   const navigate = useNavigate();
@@ -152,8 +153,18 @@ const ServiceDetail = () => {
     console.log(`Show document checklist for ${service.title}`);
   };
 
+  //Feature1
   const handleRelatedService = (relatedServiceId) => {
     navigate(`/services/${relatedServiceId}`);
+  };
+  const handleAddToChecklist = async () => {
+    try {
+      await axios.post("/checklist/add/", { service_id: serviceId });
+      alert("Service added to your checklist!");
+    } catch (error) {
+      console.error("Error adding to checklist:", error);
+      alert("Could not add to checklist.");
+    }
   };
 
   return (
@@ -187,13 +198,30 @@ const ServiceDetail = () => {
               >
                 {service.applyButton}
               </button>
-              <button
+              {/* <button
                 className="btn btn-outline btn-checklist"
                 onClick={handleDocumentChecklist}
               >
                 <FaFileAlt className="btn-icon" />
                 {service.checklistButton}
-              </button>
+              </button> */}
+              {user ? (
+                <button
+                  className="btn btn-outline btn-checklist"
+                  onClick={handleAddToChecklist} // We'll create this function
+                >
+                  <FaFileAlt className="btn-icon" />
+                  {service.checklistButton}
+                </button>
+              ) : (
+                <button
+                  className="btn btn-outline btn-checklist"
+                  onClick={() => navigate("/login")}
+                >
+                  <FaFileAlt className="btn-icon" />
+                  {t("services.loginToAddChecklist")}
+                </button>
+              )}
             </div>
 
             {/* Service Info Cards */}
@@ -296,7 +324,6 @@ const ServiceDetail = () => {
         </div>
       </div>
 
-      <Footer />
       <Chatbot />
     </div>
   );
