@@ -21,6 +21,7 @@ import Register from "./pages/Register";
 import ServiceDetail from "./pages/ServiceDetail";
 import Services from "./pages/Services";
 import MapPage from "./pages/MapPage";
+import Checklist from "./pages/Checklist";
 
 // Set up axios base URL
 axios.defaults.baseURL = "http://localhost:8000/api";
@@ -119,6 +120,9 @@ function App() {
                 !user ? <Login onLogin={handleLogin} /> : <Navigate to="/" />
               }
             />
+
+            <Route path="/checklist" element={<Checklist user={user} />} />
+
             <Route
               path="/register"
               element={
