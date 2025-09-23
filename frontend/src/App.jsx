@@ -127,9 +127,6 @@ function App() {
                 !user ? <Login onLogin={handleLogin} /> : <Navigate to="/" />
               }
             />
-
-            <Route path="/checklist" element={<Checklist user={user} />} />
-
             <Route
               path="/register"
               element={!user ? <Register /> : <Navigate to="/" />}
