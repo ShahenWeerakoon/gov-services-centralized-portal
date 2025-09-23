@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   FaUsers,
   FaRocket,
@@ -17,6 +17,14 @@ import "../styles/Shared.css";
 
 const About = () => {
   const { t } = useTranslation();
+  const [animatedCounters, setAnimatedCounters] = useState({
+    users: 0,
+    services: 0,
+    support: 0,
+    languages: 0,
+  });
+  const [isVisible, setIsVisible] = useState(false);
+  const statsRef = useRef(null);
 
   const values = [
     {
@@ -46,23 +54,88 @@ const About = () => {
       icon: FaUsers,
       number: "1M+",
       label: t("about.stats.users"),
+      target: 1000000,
+      suffix: "+",
+      prefix: "",
     },
     {
       icon: FaCheckCircle,
       number: "50+",
       label: t("about.stats.services"),
+      target: 50,
+      suffix: "+",
+      prefix: "",
     },
     {
       icon: FaClock,
       number: "24/7",
       label: t("about.stats.support"),
+      target: 24,
+      suffix: "/7",
+      prefix: "",
     },
     {
       icon: FaGlobe,
       number: "3",
       label: t("about.stats.languages"),
+      target: 3,
+      suffix: "",
+      prefix: "",
     },
   ];
+
+  // Intersection Observer for animation trigger
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            animateCounters();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => {
+      if (statsRef.current) {
+        observer.unobserve(statsRef.current);
+      }
+    };
+  }, []);
+
+  const animateCounters = () => {
+    const duration = 2000; // 2 seconds
+    const steps = 60;
+    const stepDuration = duration / steps;
+
+    stats.forEach((stat, index) => {
+      let current = 0;
+      const increment = stat.target / steps;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= stat.target) {
+          current = stat.target;
+          clearInterval(timer);
+        }
+
+        // Map stats by their index to avoid translation key issues
+        const counterKeys = ["users", "services", "support", "languages"];
+        const key = counterKeys[index];
+
+        setAnimatedCounters((prev) => ({
+          ...prev,
+          [key]: Math.floor(current),
+        }));
+      }, stepDuration);
+    });
+  };
 
   return (
     <div className="about-page">
@@ -72,16 +145,36 @@ const About = () => {
           <div className="hero-content">
             <h1 className="hero-title">{t("about.hero.title")}</h1>
             <p className="hero-subtitle">{t("about.hero.subtitle")}</p>
-            <div className="hero-stats">
+            <div className="hero-stats" ref={statsRef}>
               {stats.map((stat, index) => {
                 const IconComponent = stat.icon;
+                const getDisplayNumber = () => {
+                  if (index === 0) {
+                    // Users
+                    return isVisible
+                      ? `${(animatedCounters.users / 1000000).toFixed(1)}M`
+                      : "0M";
+                  } else if (index === 1) {
+                    // Services
+                    return isVisible ? `${animatedCounters.services}+` : "0+";
+                  } else if (index === 2) {
+                    // Support
+                    return "24/7"; // Keep this static as it's not a counter
+                  } else if (index === 3) {
+                    // Languages
+                    return isVisible ? `${animatedCounters.languages}` : "0";
+                  }
+                  return stat.number;
+                };
+
                 return (
                   <div key={index} className="stat-item">
                     <div className="stat-icon">
                       <IconComponent />
                     </div>
-                    <div className="stat-number">{stat.number}</div>
+                    <div className="stat-number">{getDisplayNumber()}</div>
                     <div className="stat-label">{stat.label}</div>
+                    <div className="stat-glow"></div>
                   </div>
                 );
               })}

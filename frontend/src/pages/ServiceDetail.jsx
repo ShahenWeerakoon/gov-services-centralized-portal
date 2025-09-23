@@ -396,20 +396,8 @@ const ServiceDetail = ({ user }) => {
   };
 
   const handleAddToChecklist = async () => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
-
-    try {
-      const response = await axios.post("/checklist/add/", {
-        service_id: service.id,
-      });
-      alert("Service added to your checklist!");
-    } catch (error) {
-      console.error("Error adding to checklist:", error.response || error);
-      alert("Could not add to checklist.");
-    }
+    // Redirect to checklist page with service information
+    navigate(`/checklist?service=${serviceId}`);
   };
 
   return (

@@ -13,6 +13,7 @@ const resources = {
         services: "Services",
         officeLocator: "Office Locator",
         documentChecklist: "Document Checklist",
+        checklist: "Document Checklist",
         contact: "Contact",
         login: "Log in",
         signUp: "Sign Up",
@@ -91,6 +92,15 @@ const resources = {
         subjectRequired: "Subject is required",
         messageRequired: "Message is required",
         generalError: "An error occurred. Please try again.",
+        // Modern contact features
+        activeUsers: "Active Users",
+        servicesAvailable: "Services Available",
+        satisfactionRate: "Satisfaction Rate",
+        avgResponseTime: "Avg Response Time",
+        sendEmail: "Send Email",
+        callNow: "Call Now",
+        viewOnMap: "View on Map",
+        currentlyOnline: "Currently Online",
       },
       // Auth Pages
       auth: {
@@ -107,6 +117,12 @@ const resources = {
         alreadyHaveAccount: "Already have an account?",
         signUpHere: "Sign up here",
         signInHere: "Sign in here",
+        usernameRequired: "Username or email is required",
+        passwordRequired: "Password is required",
+        invalidCredentials: "Invalid username or password. Please try again.",
+        loginError:
+          "Login failed. Please check your credentials and try again.",
+        loginSuccess: "Successfully logged in! Welcome back.",
       },
       // Services Page
       servicesPage: {
@@ -354,6 +370,46 @@ const resources = {
           servicesButton: "Explore Services",
         },
       },
+      // Document Checklist
+      checklist: {
+        title: "Document Checklist",
+        subtitle: "Organize and track your government service requirements",
+        backToHome: "Back to Home",
+        createNew: "Create New Checklist",
+        searchPlaceholder: "Search checklists...",
+        allStatus: "All Status",
+        completed: "Completed",
+        inProgress: "In Progress",
+        notStarted: "Not Started",
+        sortByName: "Sort by Name",
+        sortByProgress: "Sort by Progress",
+        sortByDate: "Sort by Date",
+        items: "items",
+        export: "Export",
+        import: "Import",
+        checklistItems: "Checklist Items",
+        addItemPlaceholder: "Add new item...",
+        createNewChecklist: "Create New Checklist",
+        checklistNamePlaceholder: "Enter checklist name...",
+        cancel: "Cancel",
+        create: "Create",
+        selectService: "Select a Service",
+        selectServiceDesc:
+          "Choose a government service to create your document checklist",
+        requiredDocuments: "required documents",
+        skipForNow: "Skip for Now",
+        noChecklistsMessage:
+          "You need to select a service to create your first checklist",
+        printChecklist: "Print Checklist",
+        downloadChecklist: "Download Checklist",
+        documents: "Documents",
+        photographs: "Photographs",
+        additionalDocuments: "Additional Documents",
+        noChecklistSelected:
+          "No checklist selected. Please create a new checklist or select an existing one.",
+        currentService: "Current Service",
+        moreServices: "More Services",
+      },
       // Footer
       footer: {
         description:
@@ -393,6 +449,7 @@ const resources = {
         services: "සේවා",
         officeLocator: "කාර්යාල ස්ථානය",
         documentChecklist: "ලේඛන ලැයිස්තුව",
+        checklist: "ලේඛන ලැයිස්තුව",
         contact: "සම්බන්ධතා",
         login: "පුරන්න",
         signUp: "ලියාපදිංචි වන්න",
@@ -472,6 +529,15 @@ const resources = {
         subjectRequired: "විෂය අවශ්‍යයි",
         messageRequired: "පණිවිඩය අවශ්‍යයි",
         generalError: "දෝෂයක් සිදුවිය. කරුණාකර නැවත උත්සාහ කරන්න.",
+        // Modern contact features
+        activeUsers: "ක්‍රියාකාරී පරිශීලකයන්",
+        servicesAvailable: "ලබා ගත හැකි සේවා",
+        satisfactionRate: "සතුටුවීමේ අනුපාතය",
+        avgResponseTime: "සාමාන්‍ය ප්‍රතිචාර කාලය",
+        sendEmail: "ඊමේල් යවන්න",
+        callNow: "දැන් ඇමතුම් කරන්න",
+        viewOnMap: "සිතියමේ බලන්න",
+        currentlyOnline: "දැනට අන්තර්ජාලයේ",
       },
       // Auth Pages
       auth: {
@@ -488,6 +554,13 @@ const resources = {
         alreadyHaveAccount: "දැනටමත් ගිණුමක් තිබේද?",
         signUpHere: "මෙහි ලියාපදිංචි වන්න",
         signInHere: "මෙහි පුරන්න",
+        usernameRequired: "පරිශීලක නම හෝ විද්‍යුත් තැපෑල අවශ්‍යයි",
+        passwordRequired: "මුරපදය අවශ්‍යයි",
+        invalidCredentials:
+          "වලංගු නොවන පරිශීලක නම හෝ මුරපදය. කරුණාකර නැවත උත්සාහ කරන්න.",
+        loginError:
+          "පුරන්න අසාර්ථකයි. කරුණාකර ඔබේ අක්තපත්‍ර පරීක්ෂා කර නැවත උත්සාහ කරන්න.",
+        loginSuccess: "සාර්ථකව පුරන්න! නැවත සාදරයෙන් පිළිගනිමු.",
       },
       // Services Page
       servicesPage: {
@@ -733,6 +806,45 @@ const resources = {
           servicesButton: "සේවා ගවේෂණය කරන්න",
         },
       },
+      // Document Checklist
+      checklist: {
+        title: "ලේඛන ලැයිස්තුව",
+        subtitle: "ඔබේ රජයේ සේවා අවශ්‍යතා සංවිධානය කරන්න සහ ට්‍රැක් කරන්න",
+        backToHome: "මුල් පිටුවට ආපසු",
+        createNew: "නව ලැයිස්තුවක් සාදන්න",
+        searchPlaceholder: "ලැයිස්තු සොයන්න...",
+        allStatus: "සියලු තත්වයන්",
+        completed: "සම්පූර්ණ",
+        inProgress: "ප්‍රගතියෙන්",
+        notStarted: "ආරම්භ නොකළ",
+        sortByName: "නම අනුව වර්ග කරන්න",
+        sortByProgress: "ප්‍රගතිය අනුව වර්ග කරන්න",
+        sortByDate: "දිනය අනුව වර්ග කරන්න",
+        items: "අයිතම",
+        export: "අපනයනය",
+        import: "ආනයනය",
+        checklistItems: "ලැයිස්තු අයිතම",
+        addItemPlaceholder: "නව අයිතමයක් එකතු කරන්න...",
+        createNewChecklist: "නව ලැයිස්තුවක් සාදන්න",
+        checklistNamePlaceholder: "ලැයිස්තු නම ඇතුළත් කරන්න...",
+        cancel: "අවලංගු කරන්න",
+        create: "සාදන්න",
+        selectService: "සේවාවක් තෝරන්න",
+        selectServiceDesc: "ඔබේ ලේඛන ලැයිස්තුව සාදා ගැනීමට රජයේ සේවාවක් තෝරන්න",
+        requiredDocuments: "අවශ්‍ය ලේඛන",
+        skipForNow: "දැනට මෙය මග හරින්න",
+        noChecklistsMessage:
+          "ඔබේ පළමු ලැයිස්තුව සාදා ගැනීමට සේවාවක් තෝරා ගත යුතුය",
+        printChecklist: "ලැයිස්තුව මුද්‍රණය කරන්න",
+        downloadChecklist: "ලැයිස්තුව බාගත කරන්න",
+        documents: "ලේඛන",
+        photographs: "ඡායාරූප",
+        additionalDocuments: "අතිරේක ලේඛන",
+        noChecklistSelected:
+          "ලැයිස්තුවක් තෝරා නැත. කරුණාකර නව ලැයිස්තුවක් සාදන්න හෝ පවතින ලැයිස්තුවක් තෝරන්න.",
+        currentService: "වර්තමාන සේවාව",
+        moreServices: "වැඩිදුර සේවා",
+      },
       // Footer
       footer: {
         description:
@@ -771,6 +883,7 @@ const resources = {
         services: "சேவைகள்",
         officeLocator: "அலுவலக இருப்பிடம்",
         documentChecklist: "ஆவண பட்டியல்",
+        checklist: "ஆவண பட்டியல்",
         contact: "தொடர்பு",
         login: "உள்நுழைய",
         signUp: "பதிவு செய்",
@@ -851,6 +964,15 @@ const resources = {
         subjectRequired: "பொருள் தேவை",
         messageRequired: "செய்தி தேவை",
         generalError: "பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.",
+        // Modern contact features
+        activeUsers: "செயலில் உள்ள பயனர்கள்",
+        servicesAvailable: "கிடைக்கும் சேவைகள்",
+        satisfactionRate: "திருப்தி விகிதம்",
+        avgResponseTime: "சராசரி பதில் நேரம்",
+        sendEmail: "மின்னஞ்சல் அனுப்பவும்",
+        callNow: "இப்போது அழைக்கவும்",
+        viewOnMap: "வரைபடத்தில் பார்க்கவும்",
+        currentlyOnline: "தற்போது ஆன்லைனில்",
       },
       // Auth Pages
       auth: {
@@ -867,6 +989,13 @@ const resources = {
         alreadyHaveAccount: "ஏற்கனவே கணக்கு உள்ளதா?",
         signUpHere: "இங்கே பதிவு செய்யுங்கள்",
         signInHere: "இங்கே உள்நுழையுங்கள்",
+        usernameRequired: "பயனர் பெயர் அல்லது மின்னஞ்சல் தேவை",
+        passwordRequired: "கடவுச்சொல் தேவை",
+        invalidCredentials:
+          "தவறான பயனர் பெயர் அல்லது கடவுச்சொல். தயவுசெய்து மீண்டும் முயற்சிக்கவும்.",
+        loginError:
+          "உள்நுழைவு தோல்வியடைந்தது. தயவுசெய்து உங்கள் அறிவிப்புகளை சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+        loginSuccess: "வெற்றிகரமாக உள்நுழைந்தீர்கள்! மீண்டும் வரவேற்கிறோம்.",
       },
       // Services Page
       servicesPage: {
@@ -1114,6 +1243,46 @@ const resources = {
           contactButton: "எங்களைத் தொடர்பு கொள்ளுங்கள்",
           servicesButton: "சேவைகளை ஆராயுங்கள்",
         },
+      },
+      // Document Checklist
+      checklist: {
+        title: "ஆவண பட்டியல்",
+        subtitle: "உங்கள் அரசு சேவை தேவைகளை ஒழுங்கமைத்து கண்காணிக்கவும்",
+        backToHome: "முகப்புக்கு திரும்பு",
+        createNew: "புதிய பட்டியல் உருவாக்கு",
+        searchPlaceholder: "பட்டியல்களை தேடுங்கள்...",
+        allStatus: "அனைத்து நிலைகள்",
+        completed: "முடிந்தது",
+        inProgress: "முன்னேற்றத்தில்",
+        notStarted: "தொடங்கப்படவில்லை",
+        sortByName: "பெயர் வாரியாக வரிசைப்படுத்து",
+        sortByProgress: "முன்னேற்றம் வாரியாக வரிசைப்படுத்து",
+        sortByDate: "தேதி வாரியாக வரிசைப்படுத்து",
+        items: "பொருட்கள்",
+        export: "ஏற்றுமதி",
+        import: "இறக்குமதி",
+        checklistItems: "பட்டியல் பொருட்கள்",
+        addItemPlaceholder: "புதிய பொருளை சேர்க்கவும்...",
+        createNewChecklist: "புதிய பட்டியல் உருவாக்கு",
+        checklistNamePlaceholder: "பட்டியல் பெயரை உள்ளிடவும்...",
+        cancel: "ரத்து செய்",
+        create: "உருவாக்கு",
+        selectService: "சேவையைத் தேர்ந்தெடுக்கவும்",
+        selectServiceDesc:
+          "உங்கள் ஆவண பட்டியலை உருவாக்க அரசு சேவையைத் தேர்ந்தெடுக்கவும்",
+        requiredDocuments: "தேவையான ஆவணங்கள்",
+        skipForNow: "இப்போதைக்கு தவிர்க்கவும்",
+        noChecklistsMessage:
+          "உங்கள் முதல் பட்டியலை உருவாக்க சேவையைத் தேர்ந்தெடுக்க வேண்டும்",
+        printChecklist: "பட்டியலை அச்சிடு",
+        downloadChecklist: "பட்டியலை பதிவிறக்கு",
+        documents: "ஆவணங்கள்",
+        photographs: "புகைப்படங்கள்",
+        additionalDocuments: "கூடுதல் ஆவணங்கள்",
+        noChecklistSelected:
+          "பட்டியல் தேர்ந்தெடுக்கப்படவில்லை. தயவுசெய்து புதிய பட்டியலை உருவாக்கவும் அல்லது இருக்கும் பட்டியலைத் தேர்ந்தெடுக்கவும்.",
+        currentService: "தற்போதைய சேவை",
+        moreServices: "மேலும் சேவைகள்",
       },
       // Footer
       footer: {

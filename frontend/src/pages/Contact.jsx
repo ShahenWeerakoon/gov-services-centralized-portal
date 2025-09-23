@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaEnvelope,
   FaPhone,
@@ -7,7 +7,23 @@ import {
   FaPaperPlane,
   FaClock,
   FaBuilding,
+  FaHeadset,
+  FaRocket,
+  FaShieldAlt,
+  FaUsers,
+  FaGlobe,
+  FaStar,
 } from "react-icons/fa";
+import {
+  HiOutlineMail,
+  HiOutlinePhone,
+  HiOutlineLocationMarker,
+  HiOutlineClock,
+  HiOutlineUsers,
+  HiOutlineLightningBolt,
+  HiOutlineStar,
+  HiOutlineClock as HiClock,
+} from "react-icons/hi";
 import { useTranslation } from "react-i18next";
 import Chatbot from "../components/Chatbot";
 import "../styles/Contact.css";
@@ -24,6 +40,13 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [animatedCounters, setAnimatedCounters] = useState({
+    users: 0,
+    services: 0,
+    satisfaction: 0,
+    responseTime: 0,
+  });
+  const [isVisible, setIsVisible] = useState(false);
 
   // Static contact information
   const contactInfo = {
@@ -31,6 +54,59 @@ const Contact = () => {
     phone: "+94 11 2 345 678",
     address: "123 Government Complex, Colombo 01, Sri Lanka",
     hours: "Monday - Friday: 8:00 AM - 5:00 PM",
+  };
+
+  // Modern stats data
+  const statsData = {
+    users: 50000,
+    services: 150,
+    satisfaction: 98,
+    responseTime: 2,
+  };
+
+  // Animate counters when component mounts
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          animateCounters();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    const element = document.querySelector(".contact-info-section");
+    if (element) {
+      observer.observe(element);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const animateCounters = () => {
+    const duration = 2000;
+    const steps = 60;
+    const stepDuration = duration / steps;
+
+    Object.keys(statsData).forEach((key) => {
+      const targetValue = statsData[key];
+      const increment = targetValue / steps;
+      let currentValue = 0;
+
+      const timer = setInterval(() => {
+        currentValue += increment;
+        if (currentValue >= targetValue) {
+          currentValue = targetValue;
+          clearInterval(timer);
+        }
+
+        setAnimatedCounters((prev) => ({
+          ...prev,
+          [key]: Math.floor(currentValue),
+        }));
+      }, stepDuration);
+    });
   };
 
   const handleChange = (e) => {
@@ -115,47 +191,138 @@ const Contact = () => {
             {/* Contact Information */}
             <div className="contact-info-section">
               <div className="contact-info-card">
-                <h2>{t("contact.getInTouch")}</h2>
-                <p>{t("contact.getInTouchSubtitle")}</p>
+                <div className="contact-header">
+                  <h2>{t("contact.getInTouch")}</h2>
+                  <p>{t("contact.getInTouchSubtitle")}</p>
+                </div>
+
+                {/* Modern Stats Section */}
+                <div className="stats-grid">
+                  <div className="stat-item">
+                    <div className="stat-icon">
+                      <HiOutlineUsers />
+                    </div>
+                    <div className="stat-content">
+                      <div className="stat-number">
+                        {animatedCounters.users.toLocaleString()}+
+                      </div>
+                      <div className="stat-label">
+                        {t("contact.activeUsers")}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="stat-item">
+                    <div className="stat-icon">
+                      <HiOutlineLightningBolt />
+                    </div>
+                    <div className="stat-content">
+                      <div className="stat-number">
+                        {animatedCounters.services}+
+                      </div>
+                      <div className="stat-label">
+                        {t("contact.servicesAvailable")}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="stat-item">
+                    <div className="stat-icon">
+                      <HiOutlineStar />
+                    </div>
+                    <div className="stat-content">
+                      <div className="stat-number">
+                        {animatedCounters.satisfaction}%
+                      </div>
+                      <div className="stat-label">
+                        {t("contact.satisfactionRate")}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="stat-item">
+                    <div className="stat-icon">
+                      <HiOutlineClock />
+                    </div>
+                    <div className="stat-content">
+                      <div className="stat-number">
+                        {animatedCounters.responseTime}h
+                      </div>
+                      <div className="stat-label">
+                        {t("contact.avgResponseTime")}
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <div className="contact-details">
-                  <div className="contact-item">
+                  <div className="contact-item modern-contact-item">
                     <div className="contact-icon">
-                      <FaEnvelope />
+                      <HiOutlineMail />
                     </div>
                     <div className="contact-content">
                       <h3>{t("contact.email")}</h3>
                       <p>{contactInfo.email}</p>
+                      <div className="contact-action">
+                        <a
+                          href={`mailto:${contactInfo.email}`}
+                          className="action-link"
+                        >
+                          {t("contact.sendEmail")}
+                        </a>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="contact-item">
+                  <div className="contact-item modern-contact-item">
                     <div className="contact-icon">
-                      <FaPhone />
+                      <HiOutlinePhone />
                     </div>
                     <div className="contact-content">
                       <h3>{t("contact.phone")}</h3>
                       <p>{contactInfo.phone}</p>
+                      <div className="contact-action">
+                        <a
+                          href={`tel:${contactInfo.phone}`}
+                          className="action-link"
+                        >
+                          {t("contact.callNow")}
+                        </a>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="contact-item">
+                  <div className="contact-item modern-contact-item">
                     <div className="contact-icon">
-                      <FaMapMarkerAlt />
+                      <HiOutlineLocationMarker />
                     </div>
                     <div className="contact-content">
                       <h3>{t("contact.address")}</h3>
                       <p>{contactInfo.address}</p>
+                      <div className="contact-action">
+                        <a
+                          href={`https://maps.google.com/?q=${encodeURIComponent(
+                            contactInfo.address
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="action-link"
+                        >
+                          {t("contact.viewOnMap")}
+                        </a>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="contact-item">
+                  <div className="contact-item modern-contact-item">
                     <div className="contact-icon">
-                      <FaClock />
+                      <HiOutlineClock />
                     </div>
                     <div className="contact-content">
                       <h3>{t("contact.businessHours")}</h3>
                       <p>{contactInfo.hours}</p>
+                      <div className="contact-action">
+                        <span className="status-indicator online">
+                          {t("contact.currentlyOnline")}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

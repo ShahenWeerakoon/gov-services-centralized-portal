@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import {
@@ -12,8 +12,9 @@ import {
 } from "react-icons/fa";
 import "../styles/Auth.css";
 
-const Register = ({ onRegister }) => {
+const Register = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -123,7 +124,7 @@ const Register = ({ onRegister }) => {
 
       setSuccess(true);
       setTimeout(() => {
-        onRegister(user, token);
+        navigate("/login");
       }, 2000);
     } catch (error) {
       if (error.response && error.response.data) {
@@ -212,7 +213,7 @@ const Register = ({ onRegister }) => {
               <div className="success-message">
                 <div className="success-icon">✓</div>
                 <h3>Account Created Successfully!</h3>
-                <p>Welcome to TalkGov! Redirecting you to the dashboard...</p>
+                <p>Welcome to TalkGov! Redirecting you to login...</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
