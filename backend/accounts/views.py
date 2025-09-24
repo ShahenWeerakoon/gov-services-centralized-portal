@@ -36,21 +36,12 @@ def user_login(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
 def user_logout(request):
     try:
-        # Try to get the token from the Authorization header
-        auth_header = request.META.get('HTTP_AUTHORIZATION', '')
-        if auth_header.startswith('Token '):
-            token_key = auth_header.split(' ')[1]
-            try:
-                token = Token.objects.get(key=token_key)
-                token.delete()
-            except Token.DoesNotExist:
-                pass
+        # Delete the token
+        request.user.auth_token.delete()
     except:
         pass
-    
     logout(request)
     return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
 
