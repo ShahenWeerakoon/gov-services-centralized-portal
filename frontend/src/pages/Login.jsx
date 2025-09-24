@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import {
@@ -14,10 +14,13 @@ import {
   FaClipboardCheck,
   FaRobot,
 } from "react-icons/fa";
+import Toast from "../components/Toast";
 import "../styles/Auth.css";
 
 const Login = ({ onLogin }) => {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -25,12 +28,20 @@ const Login = ({ onLogin }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    // Clear specific field error when user starts typing
     if (errors[e.target.name]) {
       setErrors({ ...errors, [e.target.name]: "" });
+    }
+
+    // Clear general error when user starts typing
+    if (errors.general) {
+      setErrors({ ...errors, general: "" });
     }
   };
 
@@ -38,11 +49,11 @@ const Login = ({ onLogin }) => {
     const newErrors = {};
 
     if (!formData.username.trim()) {
-      newErrors.username = "Username or email is required";
+      newErrors.username = t("auth.usernameRequired");
     }
 
     if (!formData.password) {
-      newErrors.password = "Password is required";
+      newErrors.password = t("auth.passwordRequired");
     }
 
     setErrors(newErrors);
@@ -63,25 +74,92 @@ const Login = ({ onLogin }) => {
       const response = await axios.post(
         "http://127.0.0.1:8000/api/auth/login/",
         formData,
-        { withCredentials: true }
+        {
+          withCredentials: true,
+          timeout: 10000, // 10 second timeout
+        }
       );
 
       const user = response.data.user || response.data;
       const token = response.data.token || null;
 
       onLogin(user, token);
-    } catch (error) {
-      if (error.response && error.response.data) {
-        const normalizedErrors = Object.fromEntries(
-          Object.entries(error.response.data).map(([key, value]) => [
-            key,
-            Array.isArray(value) ? value[0] : value,
-          ])
-        );
-        setErrors(normalizedErrors);
+
+      // Show success toast
+      setToastMessage(t("auth.loginSuccess"));
+      setShowToast(true);
+
+      // Redirect to return URL if provided, otherwise go to home
+      const returnUrl = searchParams.get("return");
+      if (returnUrl) {
+        navigate(decodeURIComponent(returnUrl));
       } else {
+        navigate("/");
+      }
+    } catch (error) {
+      // Handle different types of errors
+      if (error.response) {
+        // Server responded with error status
+        const status = error.response.status;
+        const data = error.response.data;
+
+        if (status === 401) {
+          // Unauthorized - wrong credentials
+          setErrors({
+            general: t("auth.invalidCredentials"),
+          });
+        } else if (status === 400) {
+          // Bad request - validation errors
+          if (data && typeof data === "object") {
+            // Check if it's a validation error with "Invalid credentials"
+            if (
+              data.non_field_errors &&
+              data.non_field_errors.includes("Invalid credentials")
+            ) {
+              setErrors({
+                general: t("auth.invalidCredentials"),
+              });
+            } else {
+              const normalizedErrors = Object.fromEntries(
+                Object.entries(data).map(([key, value]) => [
+                  key,
+                  Array.isArray(value) ? value[0] : value,
+                ])
+              );
+              setErrors(normalizedErrors);
+            }
+          } else {
+            setErrors({
+              general: t("auth.loginError"),
+            });
+          }
+        } else if (status >= 500) {
+          // Server error
+          setErrors({
+            general: t("auth.loginError"),
+          });
+        } else {
+          // Other client errors
+          setErrors({
+            general: t("auth.loginError"),
+          });
+        }
+      } else if (error.request) {
+        // Network error - server not responding
+        if (error.code === "ECONNABORTED") {
+          setErrors({
+            general:
+              "Connection timeout. Please check your internet connection and try again.",
+          });
+        } else {
+          setErrors({
+            general: t("auth.loginError"),
+          });
+        }
+      } else {
+        // Other errors
         setErrors({
-          general: "Invalid credentials. Please try again.",
+          general: t("auth.loginError"),
         });
       }
     } finally {
@@ -246,6 +324,17 @@ const Login = ({ onLogin }) => {
           </div>
         </div>
       </div>
+
+      {/* Success Toast */}
+      {showToast && (
+        <Toast
+          message={toastMessage}
+          type="success"
+          duration={3000}
+          position="top-right"
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </div>
   );
 };

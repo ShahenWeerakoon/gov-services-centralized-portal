@@ -21,7 +21,7 @@ import Register from "./pages/Register";
 import ServiceDetail from "./pages/ServiceDetail";
 import Services from "./pages/Services";
 import MapPage from "./pages/MapPage";
-import Checklist from "./pages/Checklist";
+import DocumentChecklist from "./pages/DocumentChecklist";
 
 // Set up axios base URL
 axios.defaults.baseURL = "http://localhost:8000/api";
@@ -72,11 +72,18 @@ function App() {
     axios.defaults.headers.common["Authorization"] = `Token ${token}`;
   };
 
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem("token");
-    delete axios.defaults.headers.common["Authorization"];
-    axios.post("/auth/logout/").catch(console.error);
+  const handleLogout = async () => {
+    try {
+      // Make logout request with current token before clearing it
+      await axios.post("/auth/logout/");
+    } catch (error) {
+      console.error("Logout request failed:", error);
+    } finally {
+      // Always clear local state and token, even if logout request fails
+      setUser(null);
+      localStorage.removeItem("token");
+      delete axios.defaults.headers.common["Authorization"];
+    }
   };
 
   if (loading) {
@@ -120,18 +127,9 @@ function App() {
                 !user ? <Login onLogin={handleLogin} /> : <Navigate to="/" />
               }
             />
-
-            <Route path="/checklist" element={<Checklist user={user} />} />
-
             <Route
               path="/register"
-              element={
-                !user ? (
-                  <Register onRegister={handleLogin} />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
+              element={!user ? <Register /> : <Navigate to="/" />}
             />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
@@ -143,6 +141,10 @@ function App() {
               element={<ServiceDetail user={user} />}
             />
             <Route path="/map" element={<MapPage />} />
+            <Route
+              path="/checklist"
+              element={<DocumentChecklist user={user} />}
+            />
           </Routes>
         </main>
         <ConditionalFooter />

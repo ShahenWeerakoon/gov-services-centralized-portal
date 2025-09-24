@@ -3,6 +3,7 @@
   min-height: 100vh;
   display: flex;
   background-color: #ffffff;
+  padding-bottom: 40px; /* Add bottom spacing */
 }
 
 /* Left Panel - Promotional Section */
@@ -303,13 +304,17 @@
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
-  padding: 0 40px;
+  padding: 0 40px 40px 40px; /* Add bottom padding for better spacing */
 }
 
 .auth-form-container {
   width: 100%;
   max-width: 450px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
 }
 
 /* Logo Section - Removed */
@@ -317,6 +322,10 @@
 /* Form Section */
 .form-section {
   padding-top: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .form-section h2 {
@@ -697,6 +706,7 @@
   margin-top: 32px;
   padding-top: 20px;
   border-top: 1px solid #e5e7eb;
+  margin-bottom: 20px; /* Add bottom margin for better spacing */
 }
 
 .auth-switch p {
@@ -775,7 +785,7 @@
   }
 
   .auth-right-panel {
-    padding: 40px 20px;
+    padding: 40px 20px 60px 20px; /* Add extra bottom padding on tablet */
   }
 
   .auth-form-container {
@@ -834,6 +844,7 @@
 
   .auth-left-panel {
     min-height: 30vh;
+    padding-bottom: 20px; /* Add bottom padding on mobile */
   }
 
   .illustration-container {
