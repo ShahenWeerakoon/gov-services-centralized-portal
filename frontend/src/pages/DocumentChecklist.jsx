@@ -156,13 +156,22 @@ const DocumentChecklist = ({ user }) => {
       category: "Identity & Civil Registration",
       icon: "🆔",
       requiredDocuments: [
-        "Birth Certificate",
-        "Previous NIC (if renewing)",
-        "Passport size photos (2 copies)",
-        "Completed application form",
-        "Address proof",
-        "Parent's NIC (for new applications)",
-        "Marriage certificate (if applicable)",
+        "Duly completed application (Form D.R.P/1,7,8)",
+        "Birth certificate or extract of the birth registry certified by the Additional District Registrar",
+        "ICAO standard photograph obtained within 06 month period",
+        "Receipt of payment of application fee",
+      ],
+      additionalDocuments: [
+        "Probable age certificate or results of search of registers (if birth certificate not available)",
+        "Document as proof of name and date of birth (if birth certificate not available)",
+        "Citizenship certificate issued by Department of Immigration and Emigration (for persons born abroad)",
+        "Dual citizenship certificate (for dual citizenship holders)",
+        "Samanera certificate or Upasampada certificate (for Buddhist monks)",
+        "Certificates from relevant departments (for priests of other religions)",
+        "Certificates of reclining of clergyship (for clergy)",
+        "Form D.R.P/OP/02/03 (if not applied within prescribed period)",
+        "Receipt of payment of prescribed fines (if late application)",
+        "Marriage certificate attested by Additional District Registrar (for name/surname change)",
       ],
     },
     2: {
@@ -171,11 +180,21 @@ const DocumentChecklist = ({ user }) => {
       category: "Identity & Civil Registration",
       icon: "📋",
       requiredDocuments: [
-        "Hospital records",
-        "Parent's ID documents",
-        "Witness statements",
-        "Completed application form",
-        "Proof of birth",
+        "Duly filled Registration Form CR01",
+        "Photocopy of parents' marriage certificate (if married)",
+        "Photocopies of parents' birth certificates",
+        "Original & photocopies of NICs of parents",
+        "Report issued by hospital (if birth occurred in hospital)",
+        "Grama Niladhari's report (for home births)",
+      ],
+      additionalDocuments: [
+        "Grama Niladhari's report (for home births)",
+        "Both parents must meet Registrar to include father's info (if parents unmarried)",
+        "Declaration form Section 16 (for overseas births within 3 months)",
+        "Declaration form Section 24 (for overseas births after 3 months)",
+        "Birth certificate issued abroad + English translation (for overseas births)",
+        "Parents' valid passports / travel documents at child's birth (for overseas births)",
+        "Parents' birth & marriage certificates (for overseas births)",
       ],
     },
     3: {
@@ -184,14 +203,18 @@ const DocumentChecklist = ({ user }) => {
       category: "Identity & Civil Registration",
       icon: "💒",
       requiredDocuments: [
-        "Marriage registration form",
-        "Bride and groom's NIC (copy)",
-        "Birth certificates (both parties)",
-        "Passport size photographs (2 copies each)",
-        "Witness statements (2 people)",
-        "Application fee payment",
-        "Divorce certificate (if previously married)",
-        "Death certificate of previous spouse (if applicable)",
+        "Birth Certificate (or other document confirming name and date of birth)",
+        "Marriage Notice (2 copies, certified)",
+        "Valid NIC / Passport",
+        "Proof of residency (in the relevant division for at least 10 days)",
+        "If one party was abroad → the other party must have resided in Sri Lanka for at least 4 or 10 days depending on conditions",
+        "Two witnesses for the registration",
+      ],
+      additionalDocuments: [
+        "Marriage Notice certification by Marriage Registrar / Justice of Peace / Notary Public / Minister",
+        "Special marriage license (if urgent - before 14 days)",
+        "Special permission (if marriage outside Registrar's office)",
+        "Exchange notices between Registrars (if parties reside in different divisions)",
       ],
     },
     4: {
@@ -510,11 +533,16 @@ const DocumentChecklist = ({ user }) => {
           setSelectedChecklist(existingServiceChecklist);
         } else {
           // If checklist doesn't exist, create it immediately
+          const allDocuments = [
+            ...service.requiredDocuments,
+            ...(service.additionalDocuments || []),
+          ];
+
           const newChecklist = {
             id: Date.now(),
             name: service.name,
             service: service.category,
-            items: service.requiredDocuments.map((doc, index) => ({
+            items: allDocuments.map((doc, index) => ({
               id: index + 1,
               text: doc,
               completed: false,
@@ -542,11 +570,16 @@ const DocumentChecklist = ({ user }) => {
       if (serviceId && serviceDetailMapping[serviceId]) {
         const service = serviceDetailMapping[serviceId];
         // Create new checklist for the service immediately
+        const allDocuments = [
+          ...service.requiredDocuments,
+          ...(service.additionalDocuments || []),
+        ];
+
         const newChecklist = {
           id: Date.now(),
           name: service.name,
           service: service.category,
-          items: service.requiredDocuments.map((doc, index) => ({
+          items: allDocuments.map((doc, index) => ({
             id: index + 1,
             text: doc,
             completed: false,
@@ -762,11 +795,16 @@ const DocumentChecklist = ({ user }) => {
     }
 
     // Create new checklist only if it doesn't exist
+    const allDocuments = [
+      ...service.requiredDocuments,
+      ...(service.additionalDocuments || []),
+    ];
+
     const newChecklist = {
       id: Date.now(), // Use timestamp as unique ID
       name: service.name,
       service: service.category,
-      items: service.requiredDocuments.map((doc, index) => ({
+      items: allDocuments.map((doc, index) => ({
         id: index + 1,
         text: doc,
         completed: false,

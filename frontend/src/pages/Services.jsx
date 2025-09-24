@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -21,6 +21,11 @@ import "../styles/Services.css";
 const Services = () => {
   const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("all");
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const services = [
     // Identity & Civil Registration

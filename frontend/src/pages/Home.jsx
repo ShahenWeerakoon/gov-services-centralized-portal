@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FaPassport,
@@ -12,7 +12,6 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import Chatbot from "../components/Chatbot";
 import heroVideo from "../assets/hero.mp4";
 import "../styles/Home.css";
 import "../styles/Shared.css";
@@ -20,6 +19,11 @@ import "../styles/Shared.css";
 const Home = ({ user }) => {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -29,6 +33,7 @@ const Home = ({ user }) => {
 
   const popularServices = [
     {
+      id: 7, // Passport application / renewal
       name: t("home.passport"),
       description: t("home.passportDesc"),
       icon: FaPassport,
@@ -37,6 +42,7 @@ const Home = ({ user }) => {
         "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     },
     {
+      id: 1, // National Identity Card (NIC) application/renewal
       name: t("home.nic"),
       description: t("home.nicDesc"),
       icon: FaIdCard,
@@ -45,6 +51,7 @@ const Home = ({ user }) => {
         "https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     },
     {
+      id: 14, // Driving License application / renewal
       name: t("home.drivingLicense"),
       description: t("home.drivingLicenseDesc"),
       icon: FaCreditCard,
@@ -53,6 +60,7 @@ const Home = ({ user }) => {
         "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     },
     {
+      id: 2, // Birth Certificate issuance
       name: t("home.birthCertificate"),
       description: t("home.birthCertificateDesc"),
       icon: FaHome,
@@ -140,20 +148,10 @@ const Home = ({ user }) => {
           <div className="services-grid">
             {popularServices.map((service, index) => {
               const IconComponent = service.icon;
-              const serviceId =
-                service.name === t("home.passport")
-                  ? "passport"
-                  : service.name === t("home.nic")
-                  ? "nic"
-                  : service.name === t("home.drivingLicense")
-                  ? "driving-license"
-                  : service.name === t("home.birthCertificate")
-                  ? "birth-certificate"
-                  : "passport";
               return (
                 <Link
                   key={index}
-                  to={`/services/${serviceId}`}
+                  to={`/services/${service.id}`}
                   className={`service-card ${service.color}`}
                 >
                   <div className="service-image">
@@ -209,8 +207,6 @@ const Home = ({ user }) => {
           </div>
         </div>
       </div>
-
-      <Chatbot />
     </div>
   );
 };

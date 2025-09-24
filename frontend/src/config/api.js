@@ -1,0 +1,172 @@
+// API Configuration
+export const API_CONFIG = {
+  COHERE_API_KEY: "hULSZnx9JsAu7rAAkBb1k3og7mSnr0iWapApFyXd",
+  COHERE_API_URL: "https://api.cohere.ai/v1/generate",
+};
+
+// Government Services Knowledge Base for Sri Lanka
+export const GOVERNMENT_SERVICES = {
+  "national identity card": {
+    title: "National Identity Card (NIC)",
+    description:
+      "A mandatory identification document for all Sri Lankan citizens aged 16 and above.",
+    requirements: [
+      "Birth Certificate (original and copy)",
+      "Previous NIC (if renewing)",
+      "Two recent passport-size photographs",
+      "Completed application form",
+      "Proof of address (utility bill, etc.)",
+    ],
+    process: [
+      "Visit the Department for Registration of Persons office",
+      "Obtain and complete the application form",
+      "Submit required documents with photographs",
+      "Pay the applicable fee",
+      "Collect your NIC after processing (usually 2-3 weeks)",
+    ],
+    fees: "Rs. 500 for new NIC, Rs. 300 for renewal",
+    validity: "10 years from date of issue",
+    offices: "Department for Registration of Persons offices island-wide",
+  },
+  passport: {
+    title: "Sri Lankan Passport",
+    description:
+      "Official travel document issued to Sri Lankan citizens for international travel.",
+    requirements: [
+      "Completed passport application form",
+      "Original NIC and copy",
+      "Birth Certificate (original and copy)",
+      "Two recent passport-size photographs",
+      "Previous passport (if renewing)",
+      "Police report (if passport is lost)",
+    ],
+    process: [
+      "Visit the Department of Immigration and Emigration",
+      "Complete the passport application form",
+      "Submit all required documents",
+      "Pay the applicable fee",
+      "Biometric data collection (fingerprints, photo)",
+      "Collect passport after processing (7-14 working days)",
+    ],
+    fees: "Rs. 5,000 for new passport, Rs. 3,000 for renewal",
+    validity: "10 years from date of issue",
+    offices: "Department of Immigration and Emigration, Colombo",
+  },
+  "driving license": {
+    title: "Driving License",
+    description:
+      "Official permit to drive motor vehicles on public roads in Sri Lanka.",
+    requirements: [
+      "Completed application form",
+      "Original NIC and copy",
+      "Medical certificate from registered doctor",
+      "Eye test certificate",
+      "Learner's permit (for new applicants)",
+      "Two recent passport-size photographs",
+    ],
+    process: [
+      "Obtain learner's permit first (if new driver)",
+      "Complete driving lessons and practice",
+      "Visit Department of Motor Traffic office",
+      "Submit application with required documents",
+      "Pay applicable fees",
+      "Take written and practical tests",
+      "Collect driving license after passing tests",
+    ],
+    fees: "Rs. 1,000 for new license, Rs. 500 for renewal",
+    validity: "5 years from date of issue",
+    offices: "Department of Motor Traffic offices island-wide",
+  },
+  "birth certificate": {
+    title: "Birth Certificate",
+    description:
+      "Official document recording the birth of a person in Sri Lanka.",
+    requirements: [
+      "Completed birth registration form",
+      "Hospital birth record or midwife certificate",
+      "Parents' NICs and copies",
+      "Marriage certificate of parents (if applicable)",
+      "Witness statements (if home birth)",
+    ],
+    process: [
+      "Visit the Registrar of Births and Deaths office",
+      "Complete the birth registration form",
+      "Submit required documents",
+      "Pay the registration fee",
+      "Collect birth certificate after processing",
+    ],
+    fees: "Rs. 200 for registration",
+    validity: "Permanent document",
+    offices: "Registrar of Births and Deaths offices island-wide",
+  },
+  "marriage certificate": {
+    title: "Marriage Certificate",
+    description:
+      "Official document certifying the marriage between two individuals.",
+    requirements: [
+      "Completed marriage registration form",
+      "Both parties' NICs and copies",
+      "Birth certificates of both parties",
+      "Two witnesses with their NICs",
+      "Divorce certificate (if previously married)",
+      "Death certificate of previous spouse (if widowed)",
+    ],
+    process: [
+      "Visit the Registrar of Marriages office",
+      "Complete marriage registration form",
+      "Submit all required documents",
+      "Pay registration fee",
+      "Attend marriage ceremony with witnesses",
+      "Collect marriage certificate after ceremony",
+    ],
+    fees: "Rs. 500 for registration",
+    validity: "Permanent document",
+    offices: "Registrar of Marriages offices island-wide",
+  },
+  "business registration": {
+    title: "Business Registration",
+    description: "Official registration of a business entity in Sri Lanka.",
+    requirements: [
+      "Completed business registration form",
+      "Business name approval certificate",
+      "Owner's NIC and copy",
+      "Business address proof",
+      "Tax registration documents",
+      "Bank account details",
+    ],
+    process: [
+      "Reserve business name with Registrar of Companies",
+      "Complete business registration form",
+      "Submit required documents",
+      "Pay registration fees",
+      "Obtain business registration certificate",
+      "Register for taxes with IRD",
+    ],
+    fees: "Rs. 2,000 - Rs. 10,000 depending on business type",
+    validity: "Annual renewal required",
+    offices: "Registrar of Companies, Colombo",
+  },
+  "land registration": {
+    title: "Land Registration",
+    description: "Official registration of land ownership and property rights.",
+    requirements: [
+      "Original deed or title",
+      "Survey plan of the property",
+      "Owner's NIC and copy",
+      "Property tax receipts",
+      "Valuation report",
+      "Legal documents proving ownership",
+    ],
+    process: [
+      "Visit the Land Registry office",
+      "Submit property documents for verification",
+      "Pay registration fees",
+      "Property survey and verification",
+      "Obtain registered title deed",
+      "Update land registry records",
+    ],
+    fees: "1% of property value",
+    validity: "Permanent document",
+    offices: "Land Registry offices island-wide",
+  },
+};

@@ -437,6 +437,12 @@ const resources = {
           "Need help with document requirements? I can guide you through the process.",
         response4:
           "For more detailed assistance, you can contact our support team or visit our help center.",
+        response5:
+          "I can help you with document requirements, application processes, and service locations. What specific information do you need?",
+        response6:
+          "You can apply for services like passports, driving licenses, and birth certificates through our platform. Would you like me to guide you through any specific process?",
+        response7:
+          "For detailed assistance, you can visit our help center or contact our support team. Is there anything else I can help you with today?",
       },
     },
   },
@@ -871,6 +877,12 @@ const resources = {
           "ලේඛන අවශ්‍යතා සමඟ උදව් අවශ්‍යද? ක්‍රියාවලිය හරහා මට ඔබට මග පෙන්විය හැකිය.",
         response4:
           "වැඩි විස්තරාත්මක උදව් සඳහා, ඔබට අපේ සහාය කණ්ඩායම සමඟ සම්බන්ධ විය හැකිය හෝ අපේ උදව් මධ්‍යස්ථානයට පිවිසිය හැකිය.",
+        response5:
+          "ලේඛන අවශ්‍යතා, අයදුම් ක්‍රියාවලි සහ සේවා ස්ථාන ගැන මට ඔබට උදව් කළ හැකිය. ඔබට කුමන විශේෂිත තොරතුරු අවශ්‍යද?",
+        response6:
+          "අපේ වේදිකාව හරහා විදේශ ගමනාන්ත පත්‍ර, රියදුරු බලපත්‍ර සහ උපත සහතික පත්‍ර වැනි සේවා සඳහා ඔබට අයදුම් කළ හැකිය. ඔබට කිසියම් විශේෂිත ක්‍රියාවලියක් හරහා මග පෙන්වීමට කැමතිද?",
+        response7:
+          "වැඩි විස්තරාත්මක උදව් සඳහා, ඔබට අපේ උදව් මධ්‍යස්ථානයට පිවිසිය හැකිය හෝ අපේ සහාය කණ්ඩායම සමඟ සම්බන්ධ විය හැකිය. අද ඔබට උදව් කළ හැකි වෙනත් දෙයක් තිබේද?",
       },
     },
   },
@@ -1311,6 +1323,12 @@ const resources = {
           "ஆவண தேவைகளில் உதவி தேவையா? செயல்முறையில் நான் உங்களுக்கு வழிகாட்ட முடியும்.",
         response4:
           "மேலும் விரிவான உதவிக்கு, நீங்கள் எங்கள் ஆதரவு குழுவுடன் தொடர்பு கொள்ளலாம் அல்லது எங்கள் உதவி மையத்தை பார்வையிடலாம்.",
+        response5:
+          "ஆவண தேவைகள், விண்ணப்ப செயல்முறைகள் மற்றும் சேவை இடங்கள் பற்றி நான் உங்களுக்கு உதவ முடியும். உங்களுக்கு என்ன குறிப்பிட்ட தகவல் தேவை?",
+        response6:
+          "பாஸ்போர்ட், ஓட்டுநர் உரிமம் மற்றும் பிறப்பு சான்றிதழ் போன்ற சேவைகளுக்கு நீங்கள் எங்கள் தளத்தின் மூலம் விண்ணப்பிக்கலாம். எந்த குறிப்பிட்ட செயல்முறையில் உங்களுக்கு வழிகாட்ட வேண்டுமா?",
+        response7:
+          "மேலும் விரிவான உதவிக்கு, நீங்கள் எங்கள் உதவி மையத்தை பார்வையிடலாம் அல்லது எங்கள் ஆதரவு குழுவுடன் தொடர்பு கொள்ளலாம். இன்று உங்களுக்கு உதவக்கூடிய வேறு ஏதாவது உள்ளதா?",
       },
     },
   },
