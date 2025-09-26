@@ -675,3 +675,834 @@
     padding: 20px;
   }
 }
+
+/* Requirements Section Updates */
+.requirements-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.requirement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.requirement-item:last-child {
+  margin-bottom: 0;
+}
+
+.requirement-number {
+  background: #3b82f6;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.requirement-item span {
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Additional Requirements Section */
+.additional-requirements-section {
+  margin-bottom: 40px;
+}
+
+.additional-requirements-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.additional-requirements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.additional-requirement-group {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.requirement-group-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.requirement-group-number {
+  background: #059669;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.requirement-group-title {
+  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.requirement-group-documents {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.requirement-group-document {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 3px solid #059669;
+}
+
+.document-icon {
+  color: #059669;
+  font-size: 1rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.requirement-group-document span {
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Basic Requirements Section */
+.basic-requirements-section {
+  margin-bottom: 40px;
+}
+
+.basic-requirements-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.basic-requirements-list {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 24px;
+  border-left: 4px solid #3b82f6;
+}
+
+.basic-requirement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.basic-requirement-item:last-child {
+  margin-bottom: 0;
+}
+
+.basic-requirement-item .requirement-icon {
+  color: #10b981;
+  font-size: 1rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.basic-requirement-item span {
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Certifying Officers Section */
+.certifying-officers-section {
+  margin-bottom: 40px;
+}
+
+.certifying-officers-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.section-description {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.certifying-officers-table {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header-cell {
+  padding: 16px 20px;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.cell {
+  padding: 16px 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.applicant-cell {
+  color: #374151;
+  font-weight: 500;
+}
+
+.officer-cell {
+  color: #6b7280;
+}
+
+/* Detailed Fees Section */
+.detailed-fees-section {
+  margin-bottom: 40px;
+}
+
+.detailed-fees-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.fees-list {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+}
+
+.fee-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.fee-item:last-child {
+  border-bottom: none;
+}
+
+.fee-number {
+  background: #3b82f6;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.fee-content {
+  flex: 1;
+}
+
+.fee-description {
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.fee-amount {
+  color: #059669;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.payment-note {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.payment-note p {
+  color: #92400e;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.payment-note strong {
+  font-weight: 600;
+}
+
+/* Responsive Design for New Sections */
+@media (max-width: 768px) {
+  .certifying-officers-table {
+    font-size: 0.9rem;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+  }
+
+  .header-cell,
+  .cell {
+    padding: 12px 16px;
+  }
+
+  .fee-item {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .fee-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .fee-description {
+    font-size: 0.9rem;
+  }
+
+  .fee-amount {
+    font-size: 0.95rem;
+  }
+
+  /* Additional Requirements Responsive */
+  .additional-requirement-group {
+    padding: 20px;
+  }
+
+  .requirement-group-header {
+    gap: 12px;
+  }
+
+  .requirement-group-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .requirement-group-title {
+    font-size: 1rem;
+  }
+
+  .requirement-group-document {
+    padding: 10px 12px;
+  }
+
+  .requirement-group-document span {
+    font-size: 0.9rem;
+  }
+
+  .requirement-item {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .requirement-number {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+
+  .requirement-item span {
+    font-size: 0.95rem;
+  }
+}
+
+/* Service Fees Section */
+.service-fees-section {
+  margin-bottom: 40px;
+}
+
+.service-fees-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.service-fees-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fee-category {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.fee-category-title {
+  color: #1f2937;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.fee-category-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fee-category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 3px solid #059669;
+}
+
+.fee-category-description {
+  color: #374151;
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.fee-category-amount {
+  color: #059669;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: 16px;
+}
+
+.payment-info {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 20px;
+}
+
+.payment-info p {
+  color: #92400e;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.payment-info strong {
+  font-weight: 600;
+}
+
+/* Application Forms Section */
+.application-forms-section {
+  margin-bottom: 40px;
+}
+
+.application-forms-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.forms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.form-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.form-content {
+  flex: 1;
+}
+
+.form-name {
+  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.form-description {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.form-download-btn {
+  background: #3b82f6;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.form-download-btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+/* Appointment Booking Section */
+.appointment-booking-section {
+  margin-bottom: 40px;
+}
+
+.appointment-booking-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.appointment-info {
+  background: #f0f9ff;
+  border: 1px solid #0ea5e9;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.appointment-info p {
+  color: #0c4a6e;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Responsive Design for New Sections */
+@media (max-width: 768px) {
+  .fee-category-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .fee-category-amount {
+    margin-left: 0;
+  }
+
+  .form-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .form-download-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Eligibility Section */
+.eligibility-section {
+  margin-bottom: 40px;
+}
+
+.eligibility-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.eligibility-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.eligibility-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #f0f9ff;
+  border-radius: 8px;
+  border-left: 4px solid #0ea5e9;
+}
+
+.eligibility-bullet {
+  color: #0ea5e9;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.eligibility-item span:last-child {
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Service Locations Section */
+.service-locations-section {
+  margin-bottom: 40px;
+}
+
+.service-locations-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.locations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.location-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #f0fdf4;
+  border-radius: 8px;
+  border-left: 4px solid #22c55e;
+}
+
+.location-bullet {
+  color: #22c55e;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.location-item span:last-child {
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Marriage Fees Table Section */
+.marriage-fees-section {
+  margin-bottom: 40px;
+}
+
+.marriage-fees-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.fees-table-container {
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.fees-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.fees-table th {
+  background: #f8fafc;
+  color: #374151;
+  font-weight: 600;
+  padding: 16px 12px;
+  text-align: left;
+  border-bottom: 2px solid #e5e7eb;
+  font-size: 0.85rem;
+}
+
+.fees-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+  vertical-align: top;
+}
+
+.fees-table tr:hover {
+  background: #f9fafb;
+}
+
+.fees-table .fee-amount {
+  color: #059669;
+  font-weight: 600;
+}
+
+/* Correction of Errors Section */
+.correction-errors-section {
+  margin-bottom: 40px;
+}
+
+.correction-errors-section h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.correction-process {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.correction-process p {
+  color: #92400e;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.correction-process strong {
+  font-weight: 600;
+}
+
+.correction-requirements {
+  background: #f0f9ff;
+  border: 1px solid #0ea5e9;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.correction-requirements h3 {
+  color: #0c4a6e;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.correction-requirements ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.correction-requirements li {
+  color: #0c4a6e;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.correction-note {
+  background: #f0fdf4;
+  border: 1px solid #22c55e;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.correction-note p {
+  color: #166534;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.correction-note strong {
+  font-weight: 600;
+}
+
+/* Responsive Design for Marriage Certificate Sections */
+@media (max-width: 768px) {
+  .fees-table {
+    font-size: 0.8rem;
+  }
+
+  .fees-table th,
+  .fees-table td {
+    padding: 8px 6px;
+  }
+
+  .eligibility-item,
+  .location-item {
+    padding: 12px;
+  }
+
+  .correction-process,
+  .correction-requirements,
+  .correction-note {
+    padding: 12px;
+  }
+}

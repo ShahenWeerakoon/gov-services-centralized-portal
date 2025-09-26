@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -16,6 +16,7 @@ import {
   FaPassport,
   FaHome,
   FaCar,
+  FaHeart,
   FaHeartbeat,
   FaGraduationCap,
   FaBriefcase,
@@ -26,7 +27,6 @@ import {
 import Chatbot from "../components/Chatbot";
 import "../styles/ServiceDetail.css";
 import "../styles/Shared.css";
-import axios from "axios";
 
 // const ServiceDetail = () => {
 const ServiceDetail = ({ user }) => {
@@ -34,6 +34,11 @@ const ServiceDetail = ({ user }) => {
   const { serviceId } = useParams();
   const navigate = useNavigate();
   const [expandedStep, setExpandedStep] = useState(0);
+
+  // Scroll to top when component mounts or serviceId changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [serviceId]);
 
   // Comprehensive service data for all services
   const serviceData = {
@@ -44,50 +49,125 @@ const ServiceDetail = ({ user }) => {
       icon: FaIdCard,
       category: "Identity & Civil Registration",
       processingTime: "7-14 days",
-      fee: "LKR 500",
+      fee: "LKR 200 (First time), LKR 120 (Postal service), LKR 2500 (Penalty)",
       trending: true,
+      onlineApplication: "https://drp.gov.lk/en/assets/formats/application.pdf",
       requirements: [
-        "Birth Certificate",
-        "Previous NIC (if renewing)",
-        "Passport size photos (2 copies)",
-        "Completed application form",
-        "Proof of address",
+        "Duly completed application (Form D.R.P/1,7,8)",
+        "Birth certificate or extract of the birth registry certified by the Additional District Registrar",
+        "ICAO standard photograph obtained within 06 month period",
+        "Receipt of payment of application fee",
+      ],
+      additionalRequirements: [
+        {
+          category: "If birth certificate is not available",
+          documents: [
+            "Probable age certificate or results of search of registers",
+            "Document as proof of name and date of birth (Birth certificate of a child/School leaving certificate of the applicant/Estate leaving certificate of the applicant/certified copy of the applicant's horoscope/marriage certificate of the applicant/citizenship certificate of the applicant/Document issued by the principal, certifying the Applicant's date of birth)",
+          ],
+        },
+        {
+          category: "For persons born abroad to Sri Lankan parents",
+          documents: [
+            "Citizenship certificate issued by the Department of Immigration and Emigration to prove that Sri Lankan citizenship has been obtained",
+          ],
+        },
+        {
+          category: "For dual citizenship holders",
+          documents: ["Dual citizenship certificate"],
+        },
+        {
+          category: "For clergy",
+          documents: [
+            "For Buddhist monk: Samanera certificate or Upasampada certificate issued by the Department of Buddhist Affairs",
+            "For priests of other religions: Certificates issued by the relevant departments to prove the clergy ship of other religions",
+            "Certificates of reclining of clergyship issued by relevant departments",
+          ],
+        },
+        {
+          category: "If applicant has not applied within prescribed period",
+          documents: [
+            "Duly filled application form (Form D.R.P/OP/02/03)",
+            "Receipt of payment of prescribed fines",
+          ],
+        },
+        {
+          category: "For name/surname change",
+          documents: [
+            "Marriage certificate attested by Additional District Registrar if applying for husband's name or surname",
+          ],
+        },
+      ],
+      basicRequirements: [
+        "Every person who is a citizen of Sri Lanka and who has attained or attains the age of 15 years shall apply for a National Identity card",
+      ],
+      certifyingOfficers: [
+        {
+          applicant: "School Applicants",
+          officer: "Principal or Parivenadhipathi",
+        },
+        {
+          applicant:
+            "Applicants who have fulfilled the above basic requirements",
+          officer:
+            "Grama Niladhari of the area of residence (Counter signature of the Divisional Secretary is mandatory)",
+        },
+        {
+          applicant:
+            "Estate residents who have fulfilled the above basic qualifications",
+          officer: "Estate Superintendent",
+        },
+      ],
+      fees: [
+        {
+          description:
+            "Fee for issuance of National Identity card for the first time",
+          amount: "Rs. 200.00",
+        },
+        {
+          description:
+            "Fee for sending National Identity card by registered post under normal service",
+          amount: "Rs. 120.00",
+        },
+        {
+          description:
+            "Penalty fee for an applicant who does not apply for National Identity card within one year from the date of attaining 15 years of age",
+          amount: "Rs. 2500.00",
+        },
+        {
+          description:
+            "Penalty fee for an applicant who has not obtained National Identity card within 06 months from the date of issue of the dual citizenship certificate under Section 19(2) of Citizenship Act",
+          amount: "Rs. 2500.00",
+        },
       ],
       steps: [
         {
           id: 1,
-          title: "Check Eligibility",
-          description: "Verify you meet the requirements for NIC application",
+          title: "Fill Application Form",
+          description: "Complete the NIC application form",
           details:
-            "You must be a Sri Lankan citizen aged 16 or above. For renewal, your current NIC should be expired or expiring within 6 months.",
+            "Download and complete the application form (Form D.R.P/1,7,8) from https://drp.gov.lk/en/assets/formats/application.pdf or obtain it from the office.",
         },
         {
           id: 2,
-          title: "Gather Required Documents",
-          description: "Collect all necessary documents",
+          title: "Submit Application",
+          description: "Submit via appropriate office",
           details:
-            "Prepare your birth certificate, previous NIC (if applicable), 2 passport-size photos, proof of address, and any supporting documents.",
+            "Submit via Grama Niladhari / Divisional Secretariat or directly at DRP head office / provincial offices depending on the service. If using One-Day Service, must go to DRP Head Office or Galle provincial office with completed documents.",
         },
         {
           id: 3,
-          title: "Complete Application Form",
-          description: "Fill out the NIC application form",
+          title: "Pay Fees and Fines",
+          description: "Pay applicable fees and penalties",
           details:
-            "Download and complete the application form from the Department of Registration of Persons website or obtain it from the office.",
+            "Pay fee + if late, fines. The aforesaid fees can be paid through the certifying officers certifying the application, and the fines should be paid to Shroff of the relevant Divisional Secretariat.",
         },
         {
           id: 4,
-          title: "Submit Application",
-          description: "Submit your application and pay the fee",
+          title: "Wait for Issuance",
+          description: "Receive your National Identity Card",
           details:
-            "Visit the nearest Department of Registration of Persons office with your documents and completed form. Pay the application fee.",
-        },
-        {
-          id: 5,
-          title: "Biometric Data Collection",
-          description: "Provide fingerprints and photograph",
-          details:
-            "Your fingerprints will be captured digitally and a new photograph will be taken at the office.",
+            "For normal service it may be posted; for one-day service you get it same day (if conditions met).",
         },
       ],
       relatedServices: [
@@ -115,43 +195,118 @@ const ServiceDetail = ({ user }) => {
       icon: FaCertificate,
       category: "Identity & Civil Registration",
       processingTime: "3-5 days",
-      fee: "LKR 200",
+      fee: "Free (within 3 months), Late fees apply (after 3 months)",
       trending: false,
+      onlineApplication: "https://online.ebmd.rgd.gov.lk/",
+      applicationForms: [
+        {
+          name: "Application Form Download (CR01)",
+          url: "https://rgd.gov.lk/web/images/application/civil/CR01.pdf",
+          description: "Main birth registration form",
+        },
+        {
+          name: "Application for Certified Copy of Birth Certificate",
+          url: "https://rgd.gov.lk/web/images/pdf/births/Application_for_birth_certificate_or_search_registeres_2017-04-25.pdf",
+          description: "For obtaining certified copies",
+        },
+      ],
+      serviceFees: [
+        {
+          category: "Birth Registration",
+          fees: [
+            {
+              description: "Within 3 months",
+              amount: "Free",
+            },
+            {
+              description: "After 3 months",
+              amount: "Late registration fees apply",
+            },
+            {
+              description: "Overseas birth registration (citizenship)",
+              amount: "Rs. 5,750 (if within prescribed period)",
+            },
+            {
+              description: "Delayed applications",
+              amount: "Extra per year",
+            },
+          ],
+        },
+        {
+          category: "Certified Copies of Birth Certificate",
+          fees: [
+            {
+              description: "If certificate number & date known",
+              amount: "Rs. 120 per copy",
+            },
+            {
+              description: "If details unknown (search required, < 2 years)",
+              amount: "Rs. 250 per copy",
+            },
+          ],
+        },
+      ],
+      paymentInfo:
+        "Payment can be made directly at Divisional Secretariat OR by depositing to RGD Account No. 7039827 (BOC Battaramulla)",
+      appointmentBooking:
+        "Currently, RGD does not provide an online appointment booking system (only direct submission or via post/mission).",
       requirements: [
-        "Hospital records",
-        "Parent's ID documents",
-        "Witness statements",
-        "Completed application form",
-        "Proof of birth",
+        "Duly filled Registration Form CR01",
+        "Photocopy of parents' marriage certificate (if married)",
+        "Photocopies of parents' birth certificates",
+        "Original & photocopies of NICs of parents",
+        "Report issued by hospital (if birth occurred in hospital)",
+        "Grama Niladhari's report (for home births)",
+      ],
+      additionalRequirements: [
+        {
+          category: "For home births",
+          documents: ["Grama Niladhari's report"],
+        },
+        {
+          category: "If parents unmarried",
+          documents: [
+            "Both parents must meet Registrar to include father's info",
+          ],
+        },
+        {
+          category: "For overseas births",
+          documents: [
+            "Declaration form (Section 16 if within 3 months, Section 24 if after 3 months)",
+            "Birth certificate issued abroad + English translation (if not in English)",
+            "Parents' valid passports / travel documents at child's birth",
+            "Parents' birth & marriage certificates",
+          ],
+        },
       ],
       steps: [
         {
           id: 1,
-          title: "Verify Birth Records",
-          description: "Check if birth was registered at the hospital",
+          title: "Obtain and Fill Form",
+          description: "Get Form CR01 or overseas declaration form",
           details:
-            "Ensure your birth was properly recorded at the hospital where you were born. Obtain hospital birth records if available.",
+            "Obtain and fill Form CR01 (or overseas declaration form if applicable). Download Form CR01 from the Registrar General's Department website.",
         },
         {
           id: 2,
-          title: "Gather Supporting Documents",
-          description: "Collect required documents",
+          title: "Submit Application",
+          description: "Submit to appropriate office",
           details:
-            "Prepare hospital records, parent's ID documents, witness statements, and any other supporting evidence of birth.",
+            "Submit to: Local Registrar of Births & Deaths (for births in Sri Lanka) or Sri Lankan Mission overseas (for overseas births).",
         },
         {
           id: 3,
-          title: "Complete Application",
-          description: "Fill out the birth certificate application",
+          title: "Handle Late Registration",
+          description: "Address late registration requirements",
           details:
-            "Complete the official birth certificate application form with accurate information about the birth.",
+            "If late: Within 3 months → free registration. After 3 months → explanation required, late fees apply. After 1 year → formal approval needed.",
         },
         {
           id: 4,
-          title: "Submit and Pay",
-          description: "Submit application with required fee",
+          title: "Collect Certificate",
+          description: "Receive your birth certificate",
           details:
-            "Submit your application to the Registrar of Births and Deaths office along with the processing fee.",
+            "Certificate issued free of charge (one copy) to the informer. If applied overseas, delivered via Sri Lankan mission or posted.",
         },
       ],
       relatedServices: [
@@ -161,10 +316,198 @@ const ServiceDetail = ({ user }) => {
       ],
       offices: [
         {
-          name: "Registrar of Births and Deaths - Colombo",
-          address: "No. 789, Government Building, Colombo 01",
-          phone: "011-3456789",
+          name: "Registrar General's Department (RGD)",
+          address:
+            "234/A3, Denzil Kobbekaduwa Mawatha, Battaramulla, Sri Lanka",
+          phone: "+94 112 889 488 – 489",
+          email: "info@rgd.gov.lk",
         },
+        {
+          name: "Divisional Secretariats",
+          address: "Various locations island-wide",
+          phone: "For obtaining certified / translated copies",
+        },
+        {
+          name: "Sri Lankan Missions Overseas",
+          address: "Various countries",
+          phone: "For births abroad",
+        },
+      ],
+    },
+    3: {
+      id: 3,
+      title: "Marriage Certificate issuance",
+      description: "Registration of Marriages (General) – Sri Lanka",
+      icon: FaHeart,
+      category: "Identity & Civil Registration",
+      processingTime: "14 days waiting period + ceremony",
+      fee: "Rs. 120 (notice) + Rs. 900 (ceremony)",
+      trending: false,
+      onlineApplication:
+        "https://rgd.gov.lk/web/images/pdf/marriage/Application_for_certificate_of_marriage_2017-04-25.pdf",
+      eligibility: [
+        "Both parties must be 18 years or older",
+        "Parties must not be within prohibited degrees of relationship",
+        "Neither party should already be in a valid marriage",
+        "Applies to all races/religions except Muslims (since Muslim marriages are under a separate law)",
+      ],
+      requirements: [
+        "Birth Certificate (or other document confirming name and date of birth)",
+        "Marriage Notice (2 copies, certified)",
+        "Valid NIC / Passport",
+        "Proof of residency (in the relevant division for at least 10 days)",
+        "If one party was abroad → the other party must have resided in Sri Lanka for at least 4 or 10 days depending on conditions",
+        "Two witnesses for the registration",
+      ],
+      steps: [
+        {
+          id: 1,
+          title: "Submit Marriage Notice",
+          description: "File marriage notice with Registrar",
+          details:
+            "Submit Marriage Notice (in duplicate) to the Marriage Registrar of the relevant division. Must be certified by: Marriage Registrar / Justice of Peace / Notary Public / Minister.",
+        },
+        {
+          id: 2,
+          title: "Residency Requirement",
+          description: "Meet residency requirements",
+          details:
+            "At least one party must be resident in Sri Lanka. If parties reside in different divisions → notices must be exchanged between Registrars.",
+        },
+        {
+          id: 3,
+          title: "Waiting Period",
+          description: "14 days waiting period",
+          details:
+            "14 days must pass from submission of the notice before registration. If urgent → Apply for a special license to marry before 14 days.",
+        },
+        {
+          id: 4,
+          title: "Special Permission (if needed)",
+          description: "For marriages outside Registrar's office",
+          details:
+            "If marriage is to be held outside the Registrar's Office, obtain special permission and pay the required fee.",
+        },
+        {
+          id: 5,
+          title: "Marriage Registration Ceremony",
+          description: "Conduct marriage ceremony",
+          details:
+            "Marriage Registration Ceremony is conducted before the Registrar with 2 witnesses. The bride receives the 3rd copy of the Marriage Certificate.",
+        },
+      ],
+      serviceLocations: [
+        "Divisional Secretariat Offices",
+        "Registrar's Offices (Marriage Registrar / Additional District Registrar / District Registrar)",
+        "Approved Religious Places (with registration license)",
+      ],
+      appointmentBooking:
+        "No direct online appointment booking. You must visit the Divisional Secretariat / Registrar's Office of your area.",
+      serviceFees: [
+        {
+          no: 1,
+          service: "Filing marriage notice at Registrar's office",
+          paymentTo: "Registrar",
+          whoPays: "Applicant",
+          fee: "Rs. 120",
+          mode: "Cash",
+        },
+        {
+          no: 2,
+          service:
+            "Filing marriage notice at Additional/District Registrar's office",
+          paymentTo: "Govt",
+          whoPays: "Applicant",
+          fee: "Rs. 120",
+          mode: "Cash",
+        },
+        {
+          no: 3,
+          service: "Issuing Registrar's certificate on notice",
+          paymentTo: "Registrar",
+          whoPays: "Couple",
+          fee: "Rs. 120",
+          mode: "Cash",
+        },
+        {
+          no: 4,
+          service: "Issuing District Registrar's certificate on notice",
+          paymentTo: "Govt",
+          whoPays: "Couple",
+          fee: "Rs. 120",
+          mode: "Cash",
+        },
+        {
+          no: 5,
+          service: "Marriage at Registrar's office",
+          paymentTo: "Registrar",
+          whoPays: "Couple",
+          fee: "Rs. 900",
+          mode: "Cash",
+        },
+        {
+          no: 6,
+          service: "Marriage at District Registrar's office",
+          paymentTo: "Govt",
+          whoPays: "Couple",
+          fee: "Rs. 900",
+          mode: "Cash",
+        },
+        {
+          no: 7,
+          service: "Marriage outside Registrar's office",
+          paymentTo: "Registrar",
+          whoPays: "Couple",
+          fee: "Rs. 900",
+          mode: "Cash",
+        },
+        {
+          no: 8,
+          service: "Marriage outside District Registrar's office",
+          paymentTo: "Govt",
+          whoPays: "Couple",
+          fee: "Rs. 900",
+          mode: "Cash",
+        },
+        {
+          no: 9,
+          service: "Special marriage license",
+          paymentTo: "Govt",
+          whoPays: "Couple",
+          fee: "Rs. 120",
+          mode: "Cash",
+        },
+        {
+          no: 10,
+          service: "Marriage at registered religious place",
+          paymentTo: "Govt",
+          whoPays: "Couple",
+          fee: "Rs. 900",
+          mode: "Cash",
+        },
+        {
+          no: 11,
+          service: "Home license (outside Registrar's office)",
+          paymentTo: "Govt",
+          whoPays: "Couple",
+          fee: "Rs. 60",
+          mode: "Cash",
+        },
+      ],
+      correctionOfErrors: {
+        title: "Correction of Errors in Marriage Certificates",
+        process:
+          "Apply through the District Court with assistance of an Attorney-at-Law",
+        requirements: [
+          "Original Marriage Certificate",
+          "Any Court-requested documents",
+        ],
+        note: "If it's a documentary error → can be corrected by checking the duplicate with the Additional District Registrar.",
+      },
+      relatedServices: [
+        { id: 2, name: "Birth Certificate issuance" },
+        { id: 1, name: "National Identity Card (NIC) application/renewal" },
+        { id: 7, name: "Passport application / renewal" },
       ],
     },
     7: {
@@ -360,7 +703,26 @@ const ServiceDetail = ({ user }) => {
     },
   };
 
-  const service = serviceData[serviceId];
+  const service = serviceData[parseInt(serviceId)];
+
+  // Temporary test for Marriage Certificate service
+  if (parseInt(serviceId) === 3) {
+    console.log("Marriage Certificate service test:", service);
+    if (!service) {
+      console.error("Marriage Certificate service not found!");
+      return (
+        <div className="service-detail-page">
+          <div className="container">
+            <div className="service-not-found">
+              <h1>Marriage Certificate Service Not Found</h1>
+              <p>Service ID: {serviceId}</p>
+              <p>Available services: {Object.keys(serviceData).join(", ")}</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
 
   if (!service) {
     return (
@@ -385,10 +747,15 @@ const ServiceDetail = ({ user }) => {
   };
 
   const handleApplyOnline = () => {
-    // In a real app, this would redirect to the application form
-    alert(
-      `Apply online for ${service.title} - This would redirect to the application form`
-    );
+    if (service.onlineApplication) {
+      // Open the online application form in a new tab
+      window.open(service.onlineApplication, "_blank");
+    } else {
+      // Fallback for services without online application
+      alert(
+        `Apply online for ${service.title} - This would redirect to the application form`
+      );
+    }
   };
 
   const handleRelatedService = (relatedServiceId) => {
@@ -482,16 +849,277 @@ const ServiceDetail = ({ user }) => {
 
             {/* Requirements Section */}
             <div className="requirements-section">
-              <h2>{t("services.requiredDocuments")}</h2>
+              <h2>Documents to be submitted along with the application</h2>
               <div className="requirements-list">
                 {service.requirements.map((requirement, index) => (
                   <div key={index} className="requirement-item">
-                    <FaCheckCircle className="requirement-icon" />
+                    <div className="requirement-number">{index + 1}</div>
                     <span>{requirement}</span>
                   </div>
                 ))}
               </div>
             </div>
+
+            {/* Additional Requirements Section - Only for NIC */}
+            {service.additionalRequirements && (
+              <div className="additional-requirements-section">
+                <h2>Documents required in addition to the above</h2>
+                <div className="additional-requirements-list">
+                  {service.additionalRequirements.map((reqGroup, index) => (
+                    <div key={index} className="additional-requirement-group">
+                      <div className="requirement-group-header">
+                        <div className="requirement-group-number">
+                          {index + 1}
+                        </div>
+                        <h3 className="requirement-group-title">
+                          {reqGroup.category}
+                        </h3>
+                      </div>
+                      <div className="requirement-group-documents">
+                        {reqGroup.documents.map((document, docIndex) => (
+                          <div
+                            key={docIndex}
+                            className="requirement-group-document"
+                          >
+                            <FaCheckCircle className="document-icon" />
+                            <span>{document}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Basic Requirements Section - Only for NIC */}
+            {service.basicRequirements && (
+              <div className="basic-requirements-section">
+                <h2>Basic Requirements</h2>
+                <div className="basic-requirements-list">
+                  {service.basicRequirements.map((requirement, index) => (
+                    <div key={index} className="basic-requirement-item">
+                      <FaCheckCircle className="requirement-icon" />
+                      <span>{requirement}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Certifying Officers Section - Only for NIC */}
+            {service.certifyingOfficers && (
+              <div className="certifying-officers-section">
+                <h2>Certifying Officers</h2>
+                <p className="section-description">
+                  It is mandatory for every applicant to forward the application
+                  for the National Identity card through the relevant certifying
+                  officer.
+                </p>
+                <div className="certifying-officers-table">
+                  <div className="table-header">
+                    <div className="header-cell">Applicant Type</div>
+                    <div className="header-cell">Certifying Officer</div>
+                  </div>
+                  {service.certifyingOfficers.map((item, index) => (
+                    <div key={index} className="table-row">
+                      <div className="cell applicant-cell">
+                        {item.applicant}
+                      </div>
+                      <div className="cell officer-cell">{item.officer}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Detailed Fees Section - Only for NIC */}
+            {service.fees && (
+              <div className="detailed-fees-section">
+                <h2>Levy of Fees / Fines</h2>
+                <div className="fees-list">
+                  {service.fees.map((fee, index) => (
+                    <div key={index} className="fee-item">
+                      <div className="fee-number">{index + 1}</div>
+                      <div className="fee-content">
+                        <div className="fee-description">{fee.description}</div>
+                        <div className="fee-amount">{fee.amount}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="payment-note">
+                  <p>
+                    <strong>Payment Information:</strong> The aforesaid fees can
+                    be paid through the certifying officers certifying the
+                    application, and the fines should be paid to Shroff of the
+                    relevant Divisional Secretariat.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Service Fees Section - For Birth Certificate */}
+            {service.serviceFees && (
+              <div className="service-fees-section">
+                <h2>Service Fees</h2>
+                <div className="service-fees-list">
+                  {service.serviceFees.map((feeCategory, index) => (
+                    <div key={index} className="fee-category">
+                      <h3 className="fee-category-title">
+                        {feeCategory.category}
+                      </h3>
+                      <div className="fee-category-items">
+                        {feeCategory.fees.map((fee, feeIndex) => (
+                          <div key={feeIndex} className="fee-category-item">
+                            <div className="fee-category-description">
+                              {fee.description}
+                            </div>
+                            <div className="fee-category-amount">
+                              {fee.amount}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {service.paymentInfo && (
+                  <div className="payment-info">
+                    <p>
+                      <strong>Payment Information:</strong>{" "}
+                      {service.paymentInfo}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Application Forms Section - For Birth Certificate */}
+            {service.applicationForms && (
+              <div className="application-forms-section">
+                <h2>Application Forms</h2>
+                <div className="forms-list">
+                  {service.applicationForms.map((form, index) => (
+                    <div key={index} className="form-item">
+                      <div className="form-content">
+                        <h3 className="form-name">{form.name}</h3>
+                        <p className="form-description">{form.description}</p>
+                      </div>
+                      <a
+                        href={form.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="form-download-btn"
+                      >
+                        Download Form
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Appointment Booking Section - For Birth Certificate */}
+            {service.appointmentBooking && (
+              <div className="appointment-booking-section">
+                <h2>Appointment Booking</h2>
+                <div className="appointment-info">
+                  <p>{service.appointmentBooking}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Eligibility Section - For Marriage Certificate */}
+            {service.eligibility && (
+              <div className="eligibility-section">
+                <h2>✅ Eligibility</h2>
+                <div className="eligibility-list">
+                  {service.eligibility.map((requirement, index) => (
+                    <div key={index} className="eligibility-item">
+                      <span className="eligibility-bullet">•</span>
+                      <span>{requirement}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Service Locations Section - For Marriage Certificate */}
+            {service.serviceLocations && (
+              <div className="service-locations-section">
+                <h2>Service Locations</h2>
+                <div className="locations-list">
+                  {service.serviceLocations.map((location, index) => (
+                    <div key={index} className="location-item">
+                      <span className="location-bullet">•</span>
+                      <span>{location}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Marriage Service Fees Table - For Marriage Certificate */}
+            {service.serviceFees && service.serviceFees.length > 0 && (
+              <div className="marriage-fees-section">
+                <h2>Service Fees (as per Gazette)</h2>
+                <div className="fees-table-container">
+                  <table className="fees-table">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>Service</th>
+                        <th>Payment To</th>
+                        <th>Who Pays</th>
+                        <th>Fee (Rs.)</th>
+                        <th>Mode</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {service.serviceFees.map((fee, index) => (
+                        <tr key={index}>
+                          <td>{fee.no}</td>
+                          <td>{fee.service}</td>
+                          <td>{fee.paymentTo}</td>
+                          <td>{fee.whoPays}</td>
+                          <td className="fee-amount">{fee.fee}</td>
+                          <td>{fee.mode}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Correction of Errors Section - For Marriage Certificate */}
+            {service.correctionOfErrors && (
+              <div className="correction-errors-section">
+                <h2>{service.correctionOfErrors.title}</h2>
+                <div className="correction-process">
+                  <p>
+                    <strong>Process:</strong>{" "}
+                    {service.correctionOfErrors.process}
+                  </p>
+                </div>
+                <div className="correction-requirements">
+                  <h3>Required:</h3>
+                  <ul>
+                    {service.correctionOfErrors.requirements.map(
+                      (req, index) => (
+                        <li key={index}>{req}</li>
+                      )
+                    )}
+                  </ul>
+                </div>
+                <div className="correction-note">
+                  <p>
+                    <strong>Note:</strong> {service.correctionOfErrors.note}
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Application Steps */}
             <div className="application-steps">

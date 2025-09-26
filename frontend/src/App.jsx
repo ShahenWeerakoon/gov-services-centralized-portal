@@ -13,6 +13,8 @@ import "./i18n";
 // Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+import Chatbot from "./components/Chatbot";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -93,6 +95,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <ScrollToTop />
         <Navbar user={user} onLogout={handleLogout} />
         {/* <main className="main-content">
           <Routes>
@@ -148,6 +151,7 @@ function App() {
           </Routes>
         </main>
         <ConditionalFooter />
+        <Chatbot />
       </div>
     </Router>
   );
